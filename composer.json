@@ -17,5 +17,13 @@
         "psr-4": {
             "Autowp\\ZFComponents\\": "src/"
         }
+    },
+    "require-dev": {
+        "phpunit/PHPUnit": "~4.0"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AutowpTest\\ZFComponents\\": "test/"
+        }
     }
 }

@@ -29,9 +29,15 @@ class GulpRev
     
     private function loadManifest()
     {
-        if ($this->manifest === null) {
-            $json = file_get_contents($this->manifestPath);
+        if ($this->manifest !== null) {
+            return;
+        }
+
+        $this->manifest = [];
         
+        if ($this->manifestPath && file_exists($this->manifestPath)) {
+            $json = file_get_contents($this->manifestPath);
+            
             $this->manifest = Json::decode($json, Json::TYPE_ARRAY);
         }
     }
