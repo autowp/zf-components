@@ -43,7 +43,7 @@ class GulpRev extends AbstractHelper
     {
         $url = $this->service->getRevUrl($file);
         
-        $this->view->headScript()->appendFile($file, $type, $attributes);
+        $this->view->headScript()->appendFile($url, $type, $attributes);
     }
     
     public function addStylesheet($file, $media = 'screen')

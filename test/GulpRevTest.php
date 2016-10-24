@@ -9,8 +9,6 @@ use Autowp\ZFComponents\GulpRev;
  */
 class GulpRevTest extends \PHPUnit_Framework_TestCase
 {
-    
-    
     public function testNotFailsOnMissingManifest()
     {
         $service = new GulpRev([
@@ -30,6 +28,25 @@ class GulpRevTest extends \PHPUnit_Framework_TestCase
     
         $result = $service->getRevUrl('test.css');
     
-        $this->assertEquals($result, 'http://prefix/test.css');
+        $this->assertEquals('http://prefix/test.css', $result);
+    }
+    
+    public function testScriptRevAppends()
+    {
+        $app = \Zend\Mvc\Application::init(require __DIR__ . '/_files/config/application.config.php');
+        
+        $serviceManager = $app->getServiceManager();
+        
+        $view = $serviceManager->get('ViewRenderer');
+        
+        $view->gulpRev([
+            'scripts' => [
+                'test.js'
+            ]
+        ]);
+        
+        $html = $view->headScript()->toString();
+        
+        $this->assertContains('/test-81bcd394dd.js', $html);
     }
 }

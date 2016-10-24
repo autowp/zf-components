@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": ">=5.5.0",
-        "zendframework/zend-view": "^2.8",
+        "zendframework/zend-mvc": "^3.0",
         "zendframework/zend-json": "^2.6"
     },
     "autoload": {
