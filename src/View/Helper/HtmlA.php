@@ -6,14 +6,21 @@ use Zend\View\Helper\AbstractHtmlElement;
 
 class HtmlA extends AbstractHtmlElement
 {
+    /**
+     * @param array|string $attribs
+     * @param string $content
+     * @param bool $escape
+     * @return string
+     */
     public function __invoke($attribs, $content, $escape = true)
     {
         if ($escape) {
             $content = $this->view->escapeHtml($content);
         }
 
-        if (!is_array($attribs))
+        if (!is_array($attribs)) {
             $attribs = ['href' => $attribs];
+        }
 
         if (isset($attribs['shuffle']) && $attribs['shuffle']) {
             unset($attribs['shuffle']);
@@ -29,6 +36,10 @@ class HtmlA extends AbstractHtmlElement
         return '<a' . $this->htmlAttribs($attribs) . '>' . $content . '</a>';
     }
 
+    /**
+     * @param array|string $attribs
+     * @return string
+     */
     public function url($attribs)
     {
         if (!is_array($attribs)) {
@@ -39,16 +50,20 @@ class HtmlA extends AbstractHtmlElement
 
         $title = $href;
         if ($href) {
-            $pu = parse_url($href);
+            $parsedUrl = parse_url($href);
 
-            $title = (isset($pu['host']) ? $pu['host'] : '');
+            $title = (isset($parsedUrl['host']) ? $parsedUrl['host'] : '');
             $title = preg_replace('|^www\.|isu', '', $title);
         }
 
         return $this->htmlA($attribs, $title, true);
     }
 
-    private function shuffleAttribs($attribs)
+    /**
+     * @param array $attribs
+     * @return array
+     */
+    private function shuffleAttribs(array $attribs)
     {
         $keys = array_keys($attribs);
         shuffle($keys);

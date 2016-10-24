@@ -6,6 +6,10 @@ use Zend\View\Helper\AbstractHtmlElement;
 
 class HtmlImg extends AbstractHtmlElement
 {
+    /**
+     * @param array|string $attribs
+     * @return string
+     */
     public function __invoke($attribs)
     {
         if (!is_array($attribs)) {
@@ -24,7 +28,11 @@ class HtmlImg extends AbstractHtmlElement
         return '<img' . $this->htmlAttribs($attribs) . $this->getClosingBracket();
     }
 
-    private function shuffleAttribs($attribs)
+    /**
+     * @param array $attribs
+     * @return array
+     */
+    private function shuffleAttribs(array $attribs)
     {
         $keys = array_keys($attribs);
         shuffle($keys);

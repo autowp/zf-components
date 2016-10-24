@@ -13,11 +13,18 @@ class GulpRev extends AbstractHelper
      */
     private $service;
     
+    /**
+     * @param Service $service
+     */
     public function __construct(Service $service)
     {
         $this->service = $service;
     }
     
+    /**
+     * @param array $options
+     * @return GulpRev
+     */
     public function __invoke(array $options = [])
     {
         $map = [
@@ -39,17 +46,32 @@ class GulpRev extends AbstractHelper
         return $this;
     }
 
-    public function addScript($file, $type = 'text/javascript', $attributes = [])
+    /**
+     * @param string $file
+     * @param string $type
+     * @param array $attributes
+     * @return GulpRev
+     */
+    public function addScript($file, $type = 'text/javascript', array $attributes = [])
     {
         $url = $this->service->getRevUrl($file);
         
         $this->view->headScript()->appendFile($url, $type, $attributes);
+        
+        return $this;
     }
     
+    /**
+     * @param string $file
+     * @param string $media
+     * @return GulpRev
+     */
     public function addStylesheet($file, $media = 'screen')
     {
         $url = $this->service->getRevUrl($file);
     
         $this->view->headLink()->appendStylesheet($url, $media);
+        
+        return $this;
     }
 }
