@@ -1,0 +1,21 @@
+{
+    "name": "autowp/zf-components",
+    "description": "ZF Components",
+    "license": "mit",
+    "authors": [
+        {
+            "name": "Dmitry",
+            "email": "dmitry@pereslegin.ru"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.0",
+        "zendframework/zend-view": "^2.8",
+        "zendframework/zend-json": "^2.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Autowp\\ZFComponents\\": "src/"
+        }
+    }
+}
