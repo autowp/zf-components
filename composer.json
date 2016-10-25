@@ -19,7 +19,9 @@
         }
     },
     "require-dev": {
-        "phpunit/PHPUnit": "~4.0"
+        "ext-xdebug": "*",
+        "phpunit/PHPUnit": "^4.8",
+        "satooshi/php-coveralls": "^1.0"
     },
     "autoload-dev": {
         "psr-4": {

@@ -12,8 +12,12 @@ class HtmlA extends AbstractHtmlElement
      * @param bool $escape
      * @return string
      */
-    public function __invoke($attribs, $content, $escape = true)
+    public function __invoke($attribs = [], $content = '', $escape = true)
     {
+        if (!$content && !$attribs) {
+            return $this;
+        }
+        
         if ($escape) {
             $content = $this->view->escapeHtml($content);
         }
@@ -56,7 +60,7 @@ class HtmlA extends AbstractHtmlElement
             $title = preg_replace('|^www\.|isu', '', $title);
         }
 
-        return $this->htmlA($attribs, $title, true);
+        return $this->__invoke($attribs, $title, true);
     }
 
     /**

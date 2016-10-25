@@ -4,9 +4,6 @@ namespace AutowpTest\ZFComponents;
 
 use Autowp\ZFComponents\GulpRev;
 
-/**
- * @group Autowp_ExternalLoginService
- */
 class GulpRevTest extends \PHPUnit_Framework_TestCase
 {
     public function testNotFailsOnMissingManifest()
