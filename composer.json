@@ -19,7 +19,6 @@
         }
     },
     "require-dev": {
-        "ext-xdebug": "*",
         "phpunit/PHPUnit": "^4.8",
         "satooshi/php-coveralls": "^1.0"
     },
