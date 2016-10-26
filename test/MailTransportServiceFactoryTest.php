@@ -24,12 +24,6 @@ class MailTransportServiceFactoryTest extends \PHPUnit_Framework_TestCase
      */
     public function testTransportCreates($transportConfig, $expected)
     {
-        $config = new \Zend\Config\Config([
-            'mail' => [
-                'transport' => $transportConfig
-            ]
-        ]);
-        
         $serviceManager = new ServiceManager();
         $serviceManager->setService('config', [
             'mail' => [
@@ -41,6 +35,46 @@ class MailTransportServiceFactoryTest extends \PHPUnit_Framework_TestCase
         
         $transport = $serviceFactory($serviceManager, Transport\TransportInterface::class);
         
+        $this->assertInstanceOf($expected, $transport);
+    }
+    
+    /**
+     * @expectedException Exception
+     */
+    public function testExceptionThrowsOnMissingType()
+    {
+        $serviceManager = new ServiceManager();
+        $serviceManager->setService('config', [
+            'mail' => [
+                'transport' => []
+            ]
+        ]);
+    
+        $serviceFactory = new TransportServiceFactory();
+    
+        $transport = $serviceFactory($serviceManager, Transport\TransportInterface::class);
+    
+        $this->assertInstanceOf($expected, $transport);
+    }
+    
+    /**
+     * @expectedException Exception
+     */
+    public function testExceptionThrowsOnInvalidType()
+    {
+        $serviceManager = new ServiceManager();
+        $serviceManager->setService('config', [
+            'mail' => [
+                'transport' => [
+                    'type' => 'invalid'
+                ]
+            ]
+        ]);
+    
+        $serviceFactory = new TransportServiceFactory();
+    
+        $transport = $serviceFactory($serviceManager, Transport\TransportInterface::class);
+    
         $this->assertInstanceOf($expected, $transport);
     }
     
