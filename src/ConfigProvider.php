@@ -3,6 +3,7 @@
 namespace Autowp\ZFComponents;
 
 use Zend\ServiceManager\Factory\InvokableFactory;
+use Zend\Mail\Transport\TransportInterface;
 
 class ConfigProvider
 {
@@ -17,7 +18,7 @@ class ConfigProvider
             'gulp-rev'     => $this->getGulpRevConfig()
         ];
     }
-            
+
     /**
      * Return application-level dependency configuration.
      *
@@ -27,11 +28,12 @@ class ConfigProvider
     {
         return [
             'factories' => [
-                GulpRev::class => Factory\GulpRevFactory::class
+                GulpRev::class            => Factory\GulpRevFactory::class,
+                TransportInterface::class => Mail\Transport\TransportServiceFactory::class
             ]
         ];
     }
-    
+
     /**
      * @return array
      */

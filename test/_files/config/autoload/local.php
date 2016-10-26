@@ -39,5 +39,10 @@ return [
                 ]
             ]
         ]
-    ]
+    ],
+    'mail' => [
+        'transport' => [
+            'type' => 'in-memory'
+        ],
+    ],
 ];
