@@ -64,11 +64,14 @@ class FilenameSafe implements FilterInterface
         }
 
         switch ($value) {
-            case '..': $value = '__'; break;
-            case '.':  $value = '_'; break;
+            case '..': 
+                $value = '__'; 
+                break;
+            case '.':  
+                $value = '_'; 
+                break;
         }
 
         return $value;
     }
-
 }
