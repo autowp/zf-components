@@ -10,7 +10,7 @@ use Autowp\ZFComponents\Mail\Transport\TransportServiceFactory;
 
 class MailTransportServiceFactoryTest extends \PHPUnit_Framework_TestCase
 {
-    public function testFactoryWorkds()
+    public function testFactoryWorks()
     {
         $app = Application::init(require __DIR__ . '/_files/config/application.config.php');
         $serviceManager = $app->getServiceManager();
