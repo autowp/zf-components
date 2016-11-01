@@ -85,7 +85,7 @@ class MailTransportServiceFactoryTest extends \PHPUnit_Framework_TestCase
                 [
                     'type'    => 'file',
                     'options' => [
-                        'path' => "/tmp/"
+                        'path' => sys_get_temp_dir()
                     ],
                 ],
                 Transport\File::class

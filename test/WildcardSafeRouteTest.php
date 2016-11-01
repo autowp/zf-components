@@ -51,6 +51,13 @@ class WildcardSafeRouteTest extends \PHPUnit_Framework_TestCase
         ], $match->getParams());
     }
     
+    public function testAssembleWithEmptyParams()
+    {
+        $url = $this->getView()->url('example/params', []);
+    
+        $this->assertEquals('/example', $url);
+    }
+    
     public function testAssembleWithCustomDelimiter()
     {
         $url = $this->getView()->url('example2/params', [

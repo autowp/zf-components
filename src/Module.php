@@ -11,9 +11,10 @@ class Module
     {
         $provider = new ConfigProvider();
         return [
-            'service_manager' => $provider->getDependencyConfig(),
+            'filters'         => $provider->getFilterConfig(),
+            'gulp-rev'        => $provider->getGulpRevConfig(),
             'view_helpers'    => $provider->getViewHelperConfig(),
-            'gulp-rev'        => $provider->getGulpRevConfig()
+            'service_manager' => $provider->getDependencyConfig(),
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 return [
     'modules' => [
+        'Zend\Filter',
         'Zend\Router',
         'Autowp\ZFComponents'
     ],

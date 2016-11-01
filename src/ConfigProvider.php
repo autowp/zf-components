@@ -14,8 +14,9 @@ class ConfigProvider
     {
         return [
             'dependencies' => $this->getDependencyConfig(),
+            'gulp-rev'     => $this->getGulpRevConfig(),
+            'filters'      => $this->getFilterConfig(),
             'view_helpers' => $this->getViewHelperConfig(),
-            'gulp-rev'     => $this->getGulpRevConfig()
         ];
     }
 
@@ -44,6 +45,32 @@ class ConfigProvider
             'prefix'   => '/'
         ];
     }
+    
+    /**
+     * Return zend-filter configuration.
+     *
+     * @return array
+     */
+    public function getFilterConfig()
+    {
+        return [
+            'aliases' => [
+                'singlespaces'    => Filter\SingleSpaces::class,
+                'singleSpaces'    => Filter\SingleSpaces::class,
+                'SingleSpaces'    => Filter\SingleSpaces::class,
+                'transliteration' => Filter\Transliteration::class,
+                'Transliteration' => Filter\Transliteration::class,
+                'filenamesafe'    => Filter\FilenameSafe::class,
+                'filenameSafe'    => Filter\FilenameSafe::class,
+                'FilenameSafe'    => Filter\FilenameSafe::class,
+            ],
+            'factories' => [
+                Filter\SingleSpaces::class    => InvokableFactory::class,
+                Filter\Transliteration::class => InvokableFactory::class,
+                Filter\FilenameSafe::class    => InvokableFactory::class,
+            ],
+        ];
+    }
 
     /**
      * @return array
@@ -52,9 +79,9 @@ class ConfigProvider
     {
         return [
             'aliases' => [
-                'htmla' => View\Helper\HtmlA::class,
-                'htmlA' => View\Helper\HtmlA::class,
-                'HtmlA' => View\Helper\HtmlA::class,
+                'htmla'   => View\Helper\HtmlA::class,
+                'htmlA'   => View\Helper\HtmlA::class,
+                'HtmlA'   => View\Helper\HtmlA::class,
                 'htmlimg' => View\Helper\HtmlImg::class,
                 'htmlImg' => View\Helper\HtmlImg::class,
                 'HtmlImg' => View\Helper\HtmlImg::class,
