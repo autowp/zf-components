@@ -11,4 +11,4 @@ script:
  
 after_script:
 - ./vendor/bin/coveralls -v
-- ./vendor/bin/test-reporter
+- ./vendor/bin/test-reporter -v --coverage-report=./test/logs/clover.xml
