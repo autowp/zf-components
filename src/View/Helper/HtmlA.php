@@ -14,15 +14,15 @@ class HtmlA extends AbstractHtmlElement
      */
     public function __invoke($attribs = [], $content = '', $escape = true)
     {
-        if (!$content && !$attribs) {
+        if (! $content && ! $attribs) {
             return $this;
         }
-        
+
         if ($escape) {
             $content = $this->view->escapeHtml($content);
         }
 
-        if (!is_array($attribs)) {
+        if (! is_array($attribs)) {
             $attribs = ['href' => $attribs];
         }
 
@@ -32,7 +32,7 @@ class HtmlA extends AbstractHtmlElement
         }
 
         foreach ($attribs as $key => $value) {
-            if (!isset($value)) {
+            if (! isset($value)) {
                 unset($attribs[$key]);
             }
         }
@@ -46,7 +46,7 @@ class HtmlA extends AbstractHtmlElement
      */
     public function url($attribs)
     {
-        if (!is_array($attribs)) {
+        if (! is_array($attribs)) {
             $attribs = ['href' => $attribs];
         }
 

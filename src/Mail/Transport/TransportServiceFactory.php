@@ -13,25 +13,25 @@ class TransportServiceFactory implements FactoryInterface
     {
         $config = $container->has('config') ? $container->get('config') : [];
         $mailConfig = isset($config['mail']) ? $config['mail'] : [];
-        
+
         $transportConfig = isset($mailConfig['transport']) ? $mailConfig['transport'] : [];
-        
-        if (!isset($transportConfig['type'])) {
+
+        if (! isset($transportConfig['type'])) {
             throw new \Exception("Mail transport `type` not provided");
         }
-        
+
         $transport = null;
-        
+
         switch ($transportConfig['type']) {
             case 'null':
             case 'in-memory':
                 $transport = new Mail\Transport\InMemory();
                 break;
-                
+
             case 'sendmail':
                 $transport = new Mail\Transport\Sendmail();
                 break;
-                
+
             case 'smtp':
                 $transport = new Mail\Transport\Smtp();
                 if (isset($transportConfig['options'])) {
@@ -39,7 +39,7 @@ class TransportServiceFactory implements FactoryInterface
                     $transport->setOptions($transportOptions);
                 }
                 break;
-                
+
             case 'file':
                 $transport = new Mail\Transport\File();
                 if (isset($transportConfig['options'])) {
@@ -47,11 +47,11 @@ class TransportServiceFactory implements FactoryInterface
                     $transport->setOptions($transportOptions);
                 }
                 break;
-                
+
             default:
                 throw new \Exception("Unexpected transport type `{$transportConfig['type']}`");
         }
-    
+
         return $transport;
     }
 }

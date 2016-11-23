@@ -45,7 +45,7 @@ class ConfigProvider
             'prefix'   => '/'
         ];
     }
-    
+
     /**
      * Return zend-filter configuration.
      *
@@ -79,20 +79,26 @@ class ConfigProvider
     {
         return [
             'aliases' => [
-                'htmla'   => View\Helper\HtmlA::class,
-                'htmlA'   => View\Helper\HtmlA::class,
-                'HtmlA'   => View\Helper\HtmlA::class,
-                'htmlimg' => View\Helper\HtmlImg::class,
-                'htmlImg' => View\Helper\HtmlImg::class,
-                'HtmlImg' => View\Helper\HtmlImg::class,
-                'gulprev' => View\Helper\GulpRev::class,
-                'gulpRev' => View\Helper\GulpRev::class,
-                'GulpRev' => View\Helper\GulpRev::class,
+                'htmla'     => View\Helper\HtmlA::class,
+                'htmlA'     => View\Helper\HtmlA::class,
+                'HtmlA'     => View\Helper\HtmlA::class,
+                'htmlimg'   => View\Helper\HtmlImg::class,
+                'htmlImg'   => View\Helper\HtmlImg::class,
+                'HtmlImg'   => View\Helper\HtmlImg::class,
+                'humanTime' => View\Helper\HumanTime::class,
+                'HumanTime' => View\Helper\HumanTime::class,
+                'humanDate' => View\Helper\HumanDate::class,
+                'HumanDate' => View\Helper\HumanDate::class,
+                'gulprev'   => View\Helper\GulpRev::class,
+                'gulpRev'   => View\Helper\GulpRev::class,
+                'GulpRev'   => View\Helper\GulpRev::class,
             ],
             'factories' => [
-                View\Helper\HtmlA::class   => InvokableFactory::class,
-                View\Helper\HtmlImg::class => InvokableFactory::class,
-                View\Helper\GulpRev::class => Factory\GulpRevViewHelperFactory::class,
+                View\Helper\HtmlA::class     => InvokableFactory::class,
+                View\Helper\HtmlImg::class   => InvokableFactory::class,
+                View\Helper\HumanTime::class => InvokableFactory::class,
+                View\Helper\HumanDate::class => InvokableFactory::class,
+                View\Helper\GulpRev::class   => Factory\GulpRevViewHelperFactory::class,
             ],
         ];
     }

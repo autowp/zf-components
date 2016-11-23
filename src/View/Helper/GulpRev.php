@@ -12,7 +12,7 @@ class GulpRev extends AbstractHelper
      * @var Service
      */
     private $service;
-    
+
     /**
      * @param Service $service
      */
@@ -20,7 +20,7 @@ class GulpRev extends AbstractHelper
     {
         $this->service = $service;
     }
-    
+
     /**
      * @param array $options
      * @return GulpRev
@@ -31,18 +31,18 @@ class GulpRev extends AbstractHelper
             'stylesheets' => 'addStylesheet',
             'scripts'     => 'addScript'
         ];
-        
+
         foreach ($map as $key => $method) {
             if (isset($options[$key]) && is_array($options[$key])) {
                 foreach ($options[$key] as $file) {
-                    if (!is_array($file)) {
+                    if (! is_array($file)) {
                         $file = [$file];
                     }
                     call_user_func_array([$this, $method], $file);
                 }
             }
         }
-        
+
         return $this;
     }
 
@@ -55,12 +55,12 @@ class GulpRev extends AbstractHelper
     public function addScript($file, $type = 'text/javascript', array $attributes = [])
     {
         $url = $this->service->getRevUrl($file);
-        
+
         $this->view->headScript()->appendFile($url, $type, $attributes);
-        
+
         return $this;
     }
-    
+
     /**
      * @param string $file
      * @param string $media
@@ -69,9 +69,9 @@ class GulpRev extends AbstractHelper
     public function addStylesheet($file, $media = 'screen')
     {
         $url = $this->service->getRevUrl($file);
-    
+
         $this->view->headLink()->appendStylesheet($url, $media);
-        
+
         return $this;
     }
 }

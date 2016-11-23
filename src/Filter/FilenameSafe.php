@@ -67,7 +67,7 @@ class FilenameSafe implements FilterInterface
             case '..':
                 $value = '__';
                 break;
-            case '.': 
+            case '.':
                 $value = '_';
                 break;
         }

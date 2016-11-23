@@ -19,7 +19,7 @@ class HtmlImgTest extends \PHPUnit_Framework_TestCase
 
         $this->assertContains('<img src="http&#x3A;&#x2F;&#x2F;example.com&#x2F;image.png"', $html);
     }
-    
+
     public function testShuffleAttributeUnsets()
     {
         $html = $this->getView()->htmlImg([

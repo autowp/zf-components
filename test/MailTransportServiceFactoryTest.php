@@ -30,14 +30,14 @@ class MailTransportServiceFactoryTest extends \PHPUnit_Framework_TestCase
                 'transport' => $transportConfig
             ]
         ]);
-        
+
         $serviceFactory = new TransportServiceFactory();
-        
+
         $transport = $serviceFactory($serviceManager, Transport\TransportInterface::class);
-        
+
         $this->assertInstanceOf($expected, $transport);
     }
-    
+
     /**
      * @expectedException Exception
      */
@@ -49,14 +49,14 @@ class MailTransportServiceFactoryTest extends \PHPUnit_Framework_TestCase
                 'transport' => []
             ]
         ]);
-    
+
         $serviceFactory = new TransportServiceFactory();
-    
+
         $transport = $serviceFactory($serviceManager, Transport\TransportInterface::class);
-    
+
         $this->assertInstanceOf($expected, $transport);
     }
-    
+
     /**
      * @expectedException Exception
      */
@@ -70,14 +70,14 @@ class MailTransportServiceFactoryTest extends \PHPUnit_Framework_TestCase
                 ]
             ]
         ]);
-    
+
         $serviceFactory = new TransportServiceFactory();
-    
+
         $transport = $serviceFactory($serviceManager, Transport\TransportInterface::class);
-    
+
         $this->assertInstanceOf($expected, $transport);
     }
-    
+
     public static function configProvider()
     {
         return [

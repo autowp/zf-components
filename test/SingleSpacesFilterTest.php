@@ -15,7 +15,7 @@ class SingleSpacesFilterTest extends \PHPUnit_Framework_TestCase
         $result = $filter->filter($text);
         $this->assertEquals($expected, $result);
     }
- 
+
     public static function correctProvider()
     {
         return [

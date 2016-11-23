@@ -4,6 +4,7 @@ return [
     'modules' => [
         'Zend\Filter',
         'Zend\Router',
+        'Zend\I18n',
         'Autowp\ZFComponents'
     ],
     'module_listener_options' => [
