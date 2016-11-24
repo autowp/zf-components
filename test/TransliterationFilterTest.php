@@ -19,7 +19,10 @@ class TransliterationFilterTest extends \PHPUnit_Framework_TestCase
     public static function correctProvider()
     {
         return [
-            ['абвгдеёжзиклмнопрстуфх ц ч ш щ ъыь эюя', '/^abvgdeezziklmnoprstufh c c s s ("|ʺ)y(ʹ|\') eua$/'],
+            [
+                'абвгдеёжзиклмнопрстуфх ц ч ш щ ъыь эюя',
+                '/^abvgdeezziklmnoprstufh c c s s ("|ʺ)y(ʹ|\') eua$/'
+            ],
             ['Škoda', '/^Skoda$/'],
             ['数据库', '/^shu ju ku$/'],
         ];

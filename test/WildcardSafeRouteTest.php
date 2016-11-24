@@ -104,7 +104,9 @@ class WildcardSafeRouteTest extends \PHPUnit_Framework_TestCase
         $serviceManager = $this->getApp()->getServiceManager();
         $router = $serviceManager->get('HttpRouter');
 
-        $request = \Zend\Http\Request::fromString("GET /example/param1/value1/param2/value2/controller/test/action/test HTTP/1.0\n");
+        $request = \Zend\Http\Request::fromString(
+            "GET /example/param1/value1/param2/value2/controller/test/action/test HTTP/1.0\n"
+        );
 
         $match = $router->match($request);
 

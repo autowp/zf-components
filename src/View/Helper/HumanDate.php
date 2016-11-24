@@ -36,9 +36,16 @@ class HumanDate extends AbstractHelper
             return $this->view->translate('today');
         }
 
+        $now = new DateTime('now');
         $now->sub(new DateInterval('P1D'));
         if ($ymd == $now->format('Ymd')) {
             return $this->view->translate('yesterday');
+        }
+
+        $now = new DateTime('now');
+        $now->add(new DateInterval('P1D'));
+        if ($ymd == $now->format('Ymd')) {
+            return $this->view->translate('tomorrow');
         }
 
         $language = $this->view->plugin(\Zend\I18n\View\Helper\Translate::class)->getTranslator()->getLocale();

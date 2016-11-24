@@ -26,6 +26,6 @@ final class Resources
      */
     public static function getPatternForViewHelpers()
     {
-        return '%s/Zend_Captcha.php';
+        return '%s.php';
     }
 }

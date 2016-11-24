@@ -11,7 +11,7 @@ class HumanTime extends AbstractHelper
     /**
      * Converts time to fuzzy time strings
      *
-     * @param string|integer|DateTime|array $time
+     * @param integer|DateTime $time
      */
     public function __invoke($time = null)
     {
@@ -28,6 +28,38 @@ class HumanTime extends AbstractHelper
         $now = new DateTime('now');
 
         $diff = $now->getTimestamp() - $time->getTimestamp();
+
+        if ($diff < (60 * 60 + 60 * 30) && $diff >= (60 * 60 * 23.5)) {
+            //more than hour and 30 minutes
+            //less than 23 and half hour
+            $hours = $diff / (60 * 60);
+            $hours = round($hours, 0);
+            return sprintf(
+                $this->view->translatePlural('after %1$s hours', null, $hours),
+                $hours
+            );
+        }
+
+        if ($diff < (60 * 55) && $diff >= (60 * 60 + 60 * 30)) {
+            return $this->view->translate('in an hour');
+        }
+
+        if ($diff < (60 + 30) && $diff >= (60 * 55)) {
+            $minutes = $diff / 60;
+            $minutes = round($minutes, 0);
+            return sprintf(
+                $this->view->translatePlural('after %1$s minutes', null, $minutes),
+                $minutes
+            );
+        }
+
+        if ($diff < -50 && $diff > -(60 + 30)) {
+            return $this->view->translate('in a minute');
+        }
+
+        if ($diff < 0 && $diff >= -50) {
+            return $this->view->translate('in few seconds');
+        }
 
         if ($diff == 0) {
             return $this->view->translate('now');
@@ -49,7 +81,10 @@ class HumanTime extends AbstractHelper
             //less than 55 minutes
             $minutes = $diff / 60;
             $minutes = round($minutes, 0);
-            return sprintf($this->view->translatePlural('%1$s minutes ago', null, $minutes), $minutes);
+            return sprintf(
+                $this->view->translatePlural('%1$s minutes ago', null, $minutes),
+                $minutes
+            );
         }
 
         if ($diff >= (60 * 55) && $diff < (60 * 60 + 60 * 30)) {
@@ -63,7 +98,10 @@ class HumanTime extends AbstractHelper
             //less than 23 and half hour
             $hours = $diff / (60 * 60);
             $hours = round($hours, 0);
-            return sprintf($this->view->translatePlural('%1$s hours ago', null, $hours), $hours);
+            return sprintf(
+                $this->view->translatePlural('%1$s hours ago', null, $hours),
+                $hours
+            );
         }
 
         return $this->view->humanDate($time);
