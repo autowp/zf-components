@@ -50,7 +50,16 @@ class WildcardSafe extends Wildcard
 
             for ($i = 1; $i < $count; $i += 2) {
                 if (isset($params[$i + 1])) {
-                    $matches[rawurldecode($params[$i])] = rawurldecode($params[$i + 1]);
+                    $key = rawurldecode($params[$i]);
+                    $value = rawurldecode($params[$i + 1]);
+                    if (isset($matches[$key])) {
+                        if (! is_array($matches[$key])) {
+                            $matches[$key] = [$matches[$key]];
+                        }
+                        $matches[$key][] = $value;
+                    } else {
+                        $matches[$key] = $value;
+                    }
                 }
             }
         } else {
@@ -60,7 +69,17 @@ class WildcardSafe extends Wildcard
                 $param = explode($this->keyValueDelimiter, $param, 2);
 
                 if (isset($param[1])) {
-                    $matches[rawurldecode($param[0])] = rawurldecode($param[1]);
+                    $key = rawurldecode($param[0]);
+                    $value = rawurldecode($param[1]);
+
+                    if (isset($matches[$key])) {
+                        if (! is_array($matches[$key])) {
+                            $matches[$key] = [$matches[$key]];
+                        }
+                        $matches[$key][] = $value;
+                    } else {
+                        $matches[$key] = $value;
+                    }
                 }
             }
         }
@@ -92,8 +111,13 @@ class WildcardSafe extends Wildcard
 
         if ($mergedParams) {
             foreach ($mergedParams as $key => $value) {
-                $elements[] = rawurlencode($key) . $this->keyValueDelimiter . rawurlencode($value);
-
+                if (is_array($value)) {
+                    foreach ($value as $ivalue) {
+                        $elements[] = rawurlencode($key) . $this->keyValueDelimiter . rawurlencode($ivalue);
+                    }
+                } else {
+                    $elements[] = rawurlencode($key) . $this->keyValueDelimiter . rawurlencode($value);
+                }
                 $this->assembledParams[] = $key;
             }
 
