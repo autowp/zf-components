@@ -74,4 +74,11 @@ class GulpRev extends AbstractHelper
 
         return $this;
     }
+
+    public function script($file)
+    {
+        $url = $this->service->getRevUrl($file);
+
+        return '<script type="text/javascript" src="'.$this->view->escapeHtmlAttr($url).'"></script>';
+    }
 }
