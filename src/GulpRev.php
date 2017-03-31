@@ -19,7 +19,10 @@ class GulpRev
         }
 
         if (isset($options['manifest'])) {
-            $manifests['default'] = $options['manifest'];
+            $manifests['default'] = [
+                'manifest' => $options['manifest'],
+                'prefix'   => $options['prefix']
+            ];
         }
 
         foreach ($manifests as $manifest) {
