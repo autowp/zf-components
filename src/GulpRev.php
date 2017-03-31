@@ -6,50 +6,69 @@ use Zend\Json\Json;
 
 class GulpRev
 {
-    private $manifestPath = null;
-
-    private $manifest = null;
-
-    private $prefix = null;
+    /**
+     * @var array
+     */
+    private $manifests = [];
 
     public function __construct(array $options)
     {
-        if (! isset($options['manifest'])) {
-            throw new \Exception('`manifest` not provided');
+        $manifests = [];
+        if (isset($options['manifests']) && is_array($options['manifests'])) {
+            $manifests = $options['manifests'];
         }
 
-        $this->manifestPath = (string)$options['manifest'];
-
-        if (! isset($options['prefix'])) {
-            throw new \Exception('`prefix` not provided');
+        if (isset($options['manifest'])) {
+            $manifests['default'] = $options['manifest'];
         }
 
-        $this->prefix = (string)$options['prefix'];
+        foreach ($manifests as $manifest) {
+            if (! isset($manifest['manifest'])) {
+                throw new \Exception('`manifest` not provided');
+            }
+            if (! isset($manifest['prefix'])) {
+                throw new \Exception('`prefix` not provided');
+            }
+        }
+
+        $this->manifests = $manifests;
     }
 
-    private function loadManifest()
+    private function loadManifest($manifestName)
     {
-        if ($this->manifest !== null) {
-            return;
+        if (! isset($this->manifests[$manifestName])) {
+            throw new \Exception('Manifest`{$manifestName}` not found');
         }
 
-        $this->manifest = [];
+        $manifest = $this->manifests[$manifestName];
 
-        if ($this->manifestPath && file_exists($this->manifestPath)) {
-            $json = file_get_contents($this->manifestPath);
-
-            $this->manifest = Json::decode($json, Json::TYPE_ARRAY);
+        if (isset($manifest['content'])) {
+            return $manifest['content'];
         }
+
+        if (! $manifest['manifest'] || !file_exists($manifest['manifest'])) {
+            return null;
+        }
+
+        $json = file_get_contents($manifest['manifest']);
+
+        $content = Json::decode($json, Json::TYPE_ARRAY);
+
+        $this->manifests[$manifestName]['content'] = $content;
+
+        return $content;
     }
 
-    public function getRevUrl($file)
+    public function getRevUrl($file, $manifestName = 'default')
     {
-        $this->loadManifest();
+        $content = $this->loadManifest($manifestName);
 
-        if (isset($this->manifest[$file])) {
-            return $this->prefix . $this->manifest[$file];
+        $prefix = $this->manifests[$manifestName]['prefix'];
+
+        if ($content && isset($content[$file])) {
+            return $prefix . $content[$file];
         } else {
-            return $this->prefix . $file;
+            return $prefix . $file;
         }
     }
 }

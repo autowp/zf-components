@@ -25,21 +25,22 @@ class GulpRev extends AbstractHelper
      * @param array $options
      * @return GulpRev
      */
-    public function __invoke(array $options = [])
+    public function __invoke(array $options = [], $manifest = 'default')
     {
         $map = [
             'stylesheets' => 'addStylesheet',
             'scripts'     => 'addScript'
         ];
 
-        foreach ($map as $key => $method) {
-            if (isset($options[$key]) && is_array($options[$key])) {
-                foreach ($options[$key] as $file) {
-                    if (! is_array($file)) {
-                        $file = [$file];
-                    }
-                    call_user_func_array([$this, $method], $file);
-                }
+        if (isset($options['stylesheets']) && is_array($options['stylesheets'])) {
+            foreach ($options['stylesheets'] as $file) {
+                $this->addStylesheet($file, 'screen', $manifest);
+            }
+        }
+
+        if (isset($options['scripts']) && is_array($options['scripts'])) {
+            foreach ($options['scripts'] as $file) {
+                $this->addScript($file, 'text/javascript', [], $manifest);
             }
         }
 
@@ -52,9 +53,9 @@ class GulpRev extends AbstractHelper
      * @param array $attributes
      * @return GulpRev
      */
-    public function addScript($file, $type = 'text/javascript', array $attributes = [])
+    public function addScript($file, $type = 'text/javascript', array $attributes = [], $manifest = 'default')
     {
-        $url = $this->service->getRevUrl($file);
+        $url = $this->service->getRevUrl($file, $manifest);
 
         $this->view->headScript()->appendFile($url, $type, $attributes);
 
@@ -66,18 +67,18 @@ class GulpRev extends AbstractHelper
      * @param string $media
      * @return GulpRev
      */
-    public function addStylesheet($file, $media = 'screen')
+    public function addStylesheet($file, $media = 'screen', $manifest = 'default')
     {
-        $url = $this->service->getRevUrl($file);
+        $url = $this->service->getRevUrl($file, $manifest);
 
         $this->view->headLink()->appendStylesheet($url, $media);
 
         return $this;
     }
 
-    public function script($file)
+    public function script($file, $manifest = 'default')
     {
-        $url = $this->service->getRevUrl($file);
+        $url = $this->service->getRevUrl($file, $manifest);
 
         return '<script type="text/javascript" src="'.$this->view->escapeHtmlAttr($url).'"></script>';
     }

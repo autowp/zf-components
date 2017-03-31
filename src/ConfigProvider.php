@@ -41,8 +41,7 @@ class ConfigProvider
     public function getGulpRevConfig()
     {
         return [
-            'manifest' => null,
-            'prefix'   => '/'
+            'manifests' => []
         ];
     }
 
