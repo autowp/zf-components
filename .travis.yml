@@ -10,6 +10,8 @@ matrix:
 before_script: composer install
 
 script:
+- composer phpcs
+- composer phpmd src,test text ruleset.xml --suffixes php
 - ./vendor/bin/phpunit --coverage-clover ./test/logs/clover.xml
  
 after_script:

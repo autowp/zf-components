@@ -2,7 +2,7 @@
 
 namespace AutowpTest\ZFComponents;
 
-class HtmlATest extends \PHPUnit_Framework_TestCase
+class HtmlATest extends \PHPUnit\Framework\TestCase
 {
     private function getView()
     {

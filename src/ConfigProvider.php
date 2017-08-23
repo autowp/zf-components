@@ -17,6 +17,7 @@ class ConfigProvider
             'gulp-rev'     => $this->getGulpRevConfig(),
             'filters'      => $this->getFilterConfig(),
             'view_helpers' => $this->getViewHelperConfig(),
+            'tables'       => []
         ];
     }
 
@@ -28,9 +29,13 @@ class ConfigProvider
     public function getDependencyConfig()
     {
         return [
+            'aliases' => [
+                'TableManager' => Db\TableManager::class
+            ],
             'factories' => [
                 GulpRev::class            => Factory\GulpRevFactory::class,
-                TransportInterface::class => Mail\Transport\TransportServiceFactory::class
+                TransportInterface::class => Mail\Transport\TransportServiceFactory::class,
+                Db\TableManager::class    => Db\TableManagerFactory::class
             ]
         ];
     }

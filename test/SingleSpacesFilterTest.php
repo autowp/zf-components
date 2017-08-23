@@ -4,7 +4,7 @@ namespace AutowpTest\ZFComponents;
 
 use Autowp\ZFComponents\Filter\SingleSpaces;
 
-class SingleSpacesFilterTest extends \PHPUnit_Framework_TestCase
+class SingleSpacesFilterTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider correctProvider

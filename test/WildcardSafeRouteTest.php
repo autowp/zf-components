@@ -2,7 +2,7 @@
 
 namespace AutowpTest\ZFComponents;
 
-class WildcardSafeRouteTest extends \PHPUnit_Framework_TestCase
+class WildcardSafeRouteTest extends \PHPUnit\Framework\TestCase
 {
     private $app = null;
 

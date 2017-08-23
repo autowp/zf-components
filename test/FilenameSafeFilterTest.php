@@ -4,7 +4,7 @@ namespace AutowpTest\ZFComponents;
 
 use Autowp\ZFComponents\Filter\FilenameSafe;
 
-class FilenameSafeFilterTest extends \PHPUnit_Framework_TestCase
+class FilenameSafeFilterTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider correctProvider

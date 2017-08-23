@@ -2,7 +2,7 @@
 
 namespace AutowpTest\ZFComponents;
 
-class HumanTimeTest extends \PHPUnit_Framework_TestCase
+class HumanTimeTest extends \PHPUnit\Framework\TestCase
 {
     private function getView()
     {

@@ -4,7 +4,7 @@ namespace AutowpTest\ZFComponents;
 
 use Autowp\ZFComponents\Filter\Transliteration;
 
-class TransliterationFilterTest extends \PHPUnit_Framework_TestCase
+class TransliterationFilterTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider correctProvider

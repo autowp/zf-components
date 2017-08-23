@@ -49,7 +49,7 @@ class GulpRev
             return $manifest['content'];
         }
 
-        if (! $manifest['manifest'] || !file_exists($manifest['manifest'])) {
+        if (! $manifest['manifest'] || ! file_exists($manifest['manifest'])) {
             return null;
         }
 

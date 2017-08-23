@@ -10,6 +10,9 @@ use Autowp\ZFComponents\View\Helper\GulpRev as Helper;
 
 class GulpRevViewHelperFactory implements FactoryInterface
 {
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $service = $container->get(Service::class);

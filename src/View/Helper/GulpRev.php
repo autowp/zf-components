@@ -27,11 +27,6 @@ class GulpRev extends AbstractHelper
      */
     public function __invoke(array $options = [], $manifest = 'default')
     {
-        $map = [
-            'stylesheets' => 'addStylesheet',
-            'scripts'     => 'addScript'
-        ];
-
         if (isset($options['stylesheets']) && is_array($options['stylesheets'])) {
             foreach ($options['stylesheets'] as $file) {
                 $this->addStylesheet($file, 'screen', $manifest);

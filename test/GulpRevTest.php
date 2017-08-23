@@ -4,7 +4,7 @@ namespace AutowpTest\ZFComponents;
 
 use Autowp\ZFComponents\GulpRev;
 
-class GulpRevTest extends \PHPUnit_Framework_TestCase
+class GulpRevTest extends \PHPUnit\Framework\TestCase
 {
     public function testNotFailsOnMissingManifest()
     {
@@ -13,7 +13,9 @@ class GulpRevTest extends \PHPUnit_Framework_TestCase
             'prefix'   => '/'
         ]);
 
-        $result = $service->getRevUrl('test.css');
+        $service->getRevUrl('test.css');
+
+        $this->assertTrue(true);
     }
 
     public function testPrefixPrepends()

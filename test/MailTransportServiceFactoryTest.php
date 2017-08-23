@@ -8,7 +8,7 @@ use Zend\ServiceManager\ServiceManager;
 
 use Autowp\ZFComponents\Mail\Transport\TransportServiceFactory;
 
-class MailTransportServiceFactoryTest extends \PHPUnit_Framework_TestCase
+class MailTransportServiceFactoryTest extends \PHPUnit\Framework\TestCase
 {
     public function testFactoryWorks()
     {
@@ -52,9 +52,7 @@ class MailTransportServiceFactoryTest extends \PHPUnit_Framework_TestCase
 
         $serviceFactory = new TransportServiceFactory();
 
-        $transport = $serviceFactory($serviceManager, Transport\TransportInterface::class);
-
-        $this->assertInstanceOf($expected, $transport);
+        $serviceFactory($serviceManager, Transport\TransportInterface::class);
     }
 
     /**
@@ -73,9 +71,7 @@ class MailTransportServiceFactoryTest extends \PHPUnit_Framework_TestCase
 
         $serviceFactory = new TransportServiceFactory();
 
-        $transport = $serviceFactory($serviceManager, Transport\TransportInterface::class);
-
-        $this->assertInstanceOf($expected, $transport);
+        $serviceFactory($serviceManager, Transport\TransportInterface::class);
     }
 
     public static function configProvider()

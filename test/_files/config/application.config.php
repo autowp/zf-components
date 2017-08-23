@@ -2,10 +2,11 @@
 
 return [
     'modules' => [
-        'Zend\Filter',
-        'Zend\Router',
-        'Zend\I18n',
-        'Autowp\ZFComponents'
+        'Zend\\Db',
+        'Zend\\Filter',
+        'Zend\\Router',
+        'Zend\\I18n',
+        'Autowp\\ZFComponents'
     ],
     'module_listener_options' => [
         'module_paths' => [

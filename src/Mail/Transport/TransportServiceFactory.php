@@ -9,6 +9,9 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 
 class TransportServiceFactory implements FactoryInterface
 {
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         $config = $container->has('config') ? $container->get('config') : [];
