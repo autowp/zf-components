@@ -7,43 +7,37 @@ use Zend\Mail\Transport\TransportInterface;
 
 class ConfigProvider
 {
-    /**
-     * @return array
-     */
-    public function __invoke()
+    public function __invoke(): array
     {
         return [
             'dependencies' => $this->getDependencyConfig(),
             'gulp-rev'     => $this->getGulpRevConfig(),
             'filters'      => $this->getFilterConfig(),
             'view_helpers' => $this->getViewHelperConfig(),
-            'tables'       => []
+            'tables'       => [],
+            'rollbar'      => $this->getRollbarConfig()
         ];
     }
 
     /**
      * Return application-level dependency configuration.
-     *
-     * @return array
      */
-    public function getDependencyConfig()
+    public function getDependencyConfig(): array
     {
         return [
             'aliases' => [
                 'TableManager' => Db\TableManager::class
             ],
             'factories' => [
-                GulpRev::class            => Factory\GulpRevFactory::class,
-                TransportInterface::class => Mail\Transport\TransportServiceFactory::class,
-                Db\TableManager::class    => Db\TableManagerFactory::class
+                GulpRev::class                => Factory\GulpRevFactory::class,
+                TransportInterface::class     => Mail\Transport\TransportServiceFactory::class,
+                Db\TableManager::class        => Db\TableManagerFactory::class,
+                \Rollbar\RollbarLogger::class => Rollbar\LoggerFactory::class,
             ]
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function getGulpRevConfig()
+    public function getGulpRevConfig(): array
     {
         return [
             'manifests' => []
@@ -52,10 +46,8 @@ class ConfigProvider
 
     /**
      * Return zend-filter configuration.
-     *
-     * @return array
      */
-    public function getFilterConfig()
+    public function getFilterConfig(): array
     {
         return [
             'aliases' => [
@@ -76,10 +68,7 @@ class ConfigProvider
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function getViewHelperConfig()
+    public function getViewHelperConfig(): array
     {
         return [
             'aliases' => [
@@ -104,6 +93,20 @@ class ConfigProvider
                 View\Helper\HumanDate::class => InvokableFactory::class,
                 View\Helper\GulpRev::class   => Factory\GulpRevViewHelperFactory::class,
             ],
+        ];
+    }
+
+    public function getRollbarConfig(): array
+    {
+        return [
+            'logger' => [
+                'access_token' => null,
+                'environment'  => null
+            ],
+            'debounce' => [
+                'file'   => '/tmp/rollbar-debounce',
+                'period' => 60
+            ]
         ];
     }
 }

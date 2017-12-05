@@ -4,10 +4,7 @@ namespace Autowp\ZFComponents;
 
 class Module
 {
-    /**
-     * @return array
-     */
-    public function getConfig()
+    public function getConfig(): array
     {
         $provider = new ConfigProvider();
         return [
@@ -15,7 +12,8 @@ class Module
             'gulp-rev'        => $provider->getGulpRevConfig(),
             'view_helpers'    => $provider->getViewHelperConfig(),
             'service_manager' => $provider->getDependencyConfig(),
-            'tables'          => []
+            'tables'          => [],
+            'rollbar'         => $provider->getRollbarConfig()
         ];
     }
 }
