@@ -1,13 +1,13 @@
 language: php
 php:
-  - '7.0'
   - '7.1'
+  - '7.2'
   - nightly
 matrix:
   allow_failures:
   - php: nightly
 
-before_script: 
+before_script:
 - composer install
 - composer require zendframework/zend-i18n zendframework/zend-db
 
@@ -15,7 +15,7 @@ script:
 - composer cs-check
 - composer phpmd
 - ./vendor/bin/phpunit --coverage-clover ./test/logs/clover.xml
- 
+
 after_script:
 - ./vendor/bin/coveralls -v
 - ./vendor/bin/test-reporter -v --coverage-report=./test/logs/clover.xml
