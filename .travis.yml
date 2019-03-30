@@ -1,20 +1,26 @@
 language: php
 php:
-  - '7.1'
   - '7.2'
   - nightly
 matrix:
   allow_failures:
   - php: nightly
 
+addons:
+  sonarcloud:
+    organization: "autowp-zf-components"
+    token:
+      secure: $SONARCLOUD_TOKEN
+
 before_script:
 - composer install
 - composer require zendframework/zend-i18n zendframework/zend-db
 
 script:
-- composer cs-check
-- composer phpmd
-- ./vendor/bin/phpunit --coverage-clover ./test/logs/clover.xml
+- sonar-scanner || travis_terminate 1;
+- composer cs-check || travis_terminate 1;
+- composer phpmd || travis_terminate 1;
+- ./vendor/bin/phpunit --coverage-clover ./test/logs/clover.xml || travis_terminate 1;
 
 after_script:
 - ./vendor/bin/coveralls -v
