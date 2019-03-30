@@ -63,13 +63,13 @@ class FilenameSafe implements FilterInterface
             $value = '_';
         }
 
-        switch ($value) {
-            case '..':
-                $value = '__';
-                break;
-            case '.':
-                $value = '_';
-                break;
+        $map = [
+            '..' => '__',
+            '.' => '_',
+        ];
+
+        if (isset($map[$value])) {
+            $value = $map[$value];
         }
 
         return $value;

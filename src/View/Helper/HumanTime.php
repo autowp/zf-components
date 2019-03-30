@@ -2,6 +2,7 @@
 
 namespace Autowp\ZFComponents\View\Helper;
 
+use Zend\View\Exception\InvalidArgumentException;
 use Zend\View\Helper\AbstractHelper;
 
 use DateTime;
@@ -12,11 +13,14 @@ class HumanTime extends AbstractHelper
      * Converts time to fuzzy time strings
      *
      * @param integer|DateTime $time
+     * @throws InvalidArgumentException
+     *
+     * @return string
      */
     public function __invoke($time = null)
     {
         if ($time === null) {
-            throw new \Zend\View\Exception\InvalidArgumentException('Expected parameter $time was not provided.');
+            throw new InvalidArgumentException('Expected parameter $time was not provided.');
         }
 
         if (! $time instanceof DateTime) {

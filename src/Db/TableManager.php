@@ -49,11 +49,9 @@ class TableManager implements ServiceLocatorInterface
         $platformName = $platform->getName();
 
         $features = [];
-        if ($platformName == 'PostgreSQL') {
-            if (isset($spec['sequences'])) {
-                foreach ($spec['sequences'] as $field => $sequence) {
-                    $features[] = new SequenceFeature($field, $sequence);
-                }
+        if ($platformName == 'PostgreSQL' && isset($spec['sequences'])) {
+            foreach ($spec['sequences'] as $field => $sequence) {
+                $features[] = new SequenceFeature($field, $sequence);
             }
         }
 

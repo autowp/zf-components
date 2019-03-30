@@ -27,10 +27,10 @@ class GulpRev
 
         foreach ($manifests as $manifest) {
             if (! isset($manifest['manifest'])) {
-                throw new \Exception('`manifest` not provided');
+                throw new GulpRevException('`manifest` not provided');
             }
             if (! isset($manifest['prefix'])) {
-                throw new \Exception('`prefix` not provided');
+                throw new GulpRevException('`prefix` not provided');
             }
         }
 
@@ -40,7 +40,7 @@ class GulpRev
     private function loadManifest($manifestName)
     {
         if (! isset($this->manifests[$manifestName])) {
-            throw new \Exception('Manifest`{$manifestName}` not found');
+            throw new GulpRevException('Manifest`{$manifestName}` not found');
         }
 
         $manifest = $this->manifests[$manifestName];
