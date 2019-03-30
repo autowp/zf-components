@@ -46,6 +46,6 @@ class GulpRevTest extends \PHPUnit\Framework\TestCase
 
         $html = $view->headScript()->toString();
 
-        $this->assertContains('/test-81bcd394dd.js', $html);
+        $this->assertContains('&#x2F;test-81bcd394dd.js', $html);
     }
 }
