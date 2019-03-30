@@ -4,6 +4,7 @@ namespace Autowp\ZFComponents;
 
 use Exception;
 
-class GulpRevException extends Exception {
+class GulpRevException extends Exception
+{
 
 }
