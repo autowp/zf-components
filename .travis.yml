@@ -17,7 +17,7 @@ script:
 - sonar-scanner || travis_terminate 1;
 - composer cs-check || travis_terminate 1;
 - composer phpmd || travis_terminate 1;
-- ./vendor/bin/phpunit --coverage-clover ./test/logs/clover.xml || travis_terminate 1;
+- ./vendor/bin/phpunit --log-junit test/logs/junit.xml --coverage-clover ./test/logs/clover.xml || travis_terminate 1;
 
 after_script:
 - ./vendor/bin/coveralls -v
