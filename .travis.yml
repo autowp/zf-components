@@ -1,10 +1,7 @@
 language: php
 php:
   - '7.2'
-  - nightly
-matrix:
-  allow_failures:
-  - php: nightly
+  - '7.3'
 
 addons:
   sonarcloud:
