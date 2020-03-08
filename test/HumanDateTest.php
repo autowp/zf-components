@@ -11,6 +11,8 @@ use Laminas\Mvc\Application;
 use Laminas\View\Renderer\RendererInterface;
 use PHPUnit\Framework\TestCase;
 
+use function time;
+
 class HumanDateTest extends TestCase
 {
     private function getView(): RendererInterface
@@ -53,5 +55,15 @@ class HumanDateTest extends TestCase
         $output = $this->getView()->humanDate($date);
 
         $this->assertEquals('January 1, 2000', $output);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function testTimestamp(): void
+    {
+        $output = $this->getView()->humanDate(time());
+
+        $this->assertEquals('today', $output);
     }
 }

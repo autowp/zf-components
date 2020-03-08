@@ -17,17 +17,13 @@ class HumanTime extends AbstractHelper
     /**
      * Converts time to fuzzy time strings
      *
-     * @param null|int|DateTime $time
+     * @param int|DateTime $time
      * @return string
      * @throws Exception
      * @throws InvalidArgumentException
      */
-    public function __invoke($time = null)
+    public function __invoke($time)
     {
-        if ($time === null) {
-            throw new InvalidArgumentException('Expected parameter $time was not provided.');
-        }
-
         if (! $time instanceof DateTime) {
             $dateTime = new DateTime();
             $dateTime->setTimestamp($time);

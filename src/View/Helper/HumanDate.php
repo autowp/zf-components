@@ -8,7 +8,6 @@ use DateInterval;
 use DateTime;
 use IntlDateFormatter;
 use Laminas\I18n\View\Helper\Translate;
-use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\AbstractHelper;
 
 class HumanDate extends AbstractHelper
@@ -16,14 +15,10 @@ class HumanDate extends AbstractHelper
     /**
      * Converts time to fuzzy time strings
      *
-     * @param null|string|int|DateTime|array $time
+     * @param int|DateTime $time
      */
-    public function __invoke($time = null): string
+    public function __invoke($time): string
     {
-        if ($time === null) {
-            throw new InvalidArgumentException('Expected parameter $time was not provided.');
-        }
-
         if (! $time instanceof DateTime) {
             $dateTime = new DateTime();
             $dateTime->setTimestamp($time);
