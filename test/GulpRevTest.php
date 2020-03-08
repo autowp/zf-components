@@ -5,11 +5,37 @@ declare(strict_types=1);
 namespace AutowpTest\ZFComponents;
 
 use Autowp\ZFComponents\GulpRev;
+use Autowp\ZFComponents\GulpRevException;
 use Laminas\Mvc\Application;
 use PHPUnit\Framework\TestCase;
 
 class GulpRevTest extends TestCase
 {
+    /**
+     * @throws GulpRevException
+     */
+    public function testManifestRequired(): void
+    {
+        $this->expectException(GulpRevException::class);
+        new GulpRev([
+            'prefix' => '/',
+        ]);
+    }
+
+    /**
+     * @throws GulpRevException
+     */
+    public function testPrefixRequired(): void
+    {
+        $this->expectException(GulpRevException::class);
+        new GulpRev([
+            'manifest' => 'not-existent-file.json',
+        ]);
+    }
+
+    /**
+     * @throws GulpRevException
+     */
     public function testNotFailsOnMissingManifest(): void
     {
         $service = new GulpRev([
@@ -22,6 +48,9 @@ class GulpRevTest extends TestCase
         $this->assertTrue(true);
     }
 
+    /**
+     * @throws GulpRevException
+     */
     public function testPrefixPrepends(): void
     {
         $service = new GulpRev([
