@@ -28,7 +28,11 @@ class GulpRevTest extends TestCase
     {
         $this->expectException(GulpRevException::class);
         new GulpRev([
-            'prefix' => '/',
+            'manifests' => [
+                [
+                    'prefix' => '/',
+                ],
+            ],
         ]);
     }
 

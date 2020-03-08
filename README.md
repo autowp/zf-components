@@ -4,4 +4,4 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=autowp_zf-components&metric=alert_status)](https://sonarcloud.io/dashboard?id=autowp_zf-components)
 
 # zf-components
-Components for ZF2/ZF3
+Components for Laminas
