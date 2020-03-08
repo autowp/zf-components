@@ -23,7 +23,7 @@ class HtmlImgTest extends TestCase
     {
         $html = $this->getView()->htmlImg('http://example.com/image.png');
 
-        $this->assertContains('<img src="http&#x3A;&#x2F;&#x2F;example.com&#x2F;image.png"', $html);
+        $this->assertStringContainsString('<img src="http&#x3A;&#x2F;&#x2F;example.com&#x2F;image.png"', $html);
     }
 
     public function testShuffleAttributeUnsets(): void
@@ -33,6 +33,6 @@ class HtmlImgTest extends TestCase
             'shuffle' => true,
         ]);
 
-        $this->assertNotContains('shuffle', $html);
+        $this->assertStringNotContainsString('shuffle', $html);
     }
 }

@@ -49,6 +49,8 @@ class MailTransportServiceFactoryTest extends TestCase
      */
     public function testExceptionThrowsOnMissingType(): void
     {
+        $this->expectException(Exception::class);
+
         $serviceManager = new ServiceManager();
         $serviceManager->setService('config', [
             'mail' => [
@@ -66,6 +68,8 @@ class MailTransportServiceFactoryTest extends TestCase
      */
     public function testExceptionThrowsOnInvalidType(): void
     {
+        $this->expectException(Exception::class);
+
         $serviceManager = new ServiceManager();
         $serviceManager->setService('config', [
             'mail' => [
