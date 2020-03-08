@@ -17,6 +17,6 @@ script:
   - ./vendor/bin/phpunit --log-junit test/logs/junit.xml --coverage-clover ./clover.xml || travis_terminate 1;
 
 after_script:
-    - sonar-scanner -Dsonar.login=$SONARCLOUD_TOKEN || travis_terminate 1;
+  - sonar-scanner -Dsonar.login=$SONARCLOUD_TOKEN || travis_terminate 1;
   - ./vendor/bin/php-coveralls -v -x ./clover.xml
   - ./cc-test-reporter after-build -t clover --exit-code $TRAVIS_TEST_RESULT ./clover.xml
