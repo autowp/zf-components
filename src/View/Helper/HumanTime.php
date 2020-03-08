@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Autowp\ZFComponents\View\Helper;
 
 use DateTime;
+use Exception;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\AbstractHelper;
 
@@ -17,8 +18,9 @@ class HumanTime extends AbstractHelper
      * Converts time to fuzzy time strings
      *
      * @param null|int|DateTime $time
-     * @throws InvalidArgumentException
      * @return string
+     * @throws Exception
+     * @throws InvalidArgumentException
      */
     public function __invoke($time = null)
     {
