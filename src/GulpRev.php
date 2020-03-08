@@ -25,7 +25,7 @@ class GulpRev
         if (isset($options['manifest'])) {
             $manifests['default'] = [
                 'manifest' => $options['manifest'],
-                'prefix'   => $options['prefix'],
+                'prefix'   => $options['prefix'] ?? null,
             ];
         }
 
