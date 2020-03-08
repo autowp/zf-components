@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Autowp\ZFComponents\Filter;
 
-use Zend\Filter\FilterInterface;
-
+use Laminas\Filter\FilterInterface;
 use Transliterator;
 
 class Transliteration implements FilterInterface

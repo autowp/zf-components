@@ -1,26 +1,31 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Autowp\ZFComponents\Mail\Transport;
 
+use Exception;
 use Interop\Container\ContainerInterface;
-
-use Zend\Mail;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\Mail;
+use Laminas\Mail\Transport\TransportInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 class TransportServiceFactory implements FactoryInterface
 {
     /**
+     * @param  string $requestedName
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @throws Exception
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null): TransportInterface
     {
-        $config = $container->has('config') ? $container->get('config') : [];
-        $mailConfig = isset($config['mail']) ? $config['mail'] : [];
+        $config     = $container->has('config') ? $container->get('config') : [];
+        $mailConfig = $config['mail'] ?? [];
 
-        $transportConfig = isset($mailConfig['transport']) ? $mailConfig['transport'] : [];
+        $transportConfig = $mailConfig['transport'] ?? [];
 
         if (! isset($transportConfig['type'])) {
-            throw new \Exception("Mail transport `type` not provided");
+            throw new Exception("Mail transport `type` not provided");
         }
 
         $transport = null;
@@ -52,7 +57,7 @@ class TransportServiceFactory implements FactoryInterface
                 break;
 
             default:
-                throw new \Exception("Unexpected transport type `{$transportConfig['type']}`");
+                throw new Exception("Unexpected transport type `{$transportConfig['type']}`");
         }
 
         return $transport;

@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Autowp\ZFComponents;
 
-use Zend\ServiceManager\Factory\InvokableFactory;
-use Zend\Mail\Transport\TransportInterface;
+use Laminas\Mail\Transport\TransportInterface;
+use Laminas\ServiceManager\Factory\InvokableFactory;
+use Rollbar\RollbarLogger;
 
 class ConfigProvider
 {
@@ -15,7 +18,7 @@ class ConfigProvider
             'filters'      => $this->getFilterConfig(),
             'view_helpers' => $this->getViewHelperConfig(),
             'tables'       => [],
-            'rollbar'      => $this->getRollbarConfig()
+            'rollbar'      => $this->getRollbarConfig(),
         ];
     }
 
@@ -25,22 +28,22 @@ class ConfigProvider
     public function getDependencyConfig(): array
     {
         return [
-            'aliases' => [
-                'TableManager' => Db\TableManager::class
+            'aliases'   => [
+                'TableManager' => Db\TableManager::class,
             ],
             'factories' => [
-                GulpRev::class                => Factory\GulpRevFactory::class,
-                TransportInterface::class     => Mail\Transport\TransportServiceFactory::class,
-                Db\TableManager::class        => Db\TableManagerFactory::class,
-                \Rollbar\RollbarLogger::class => Rollbar\LoggerFactory::class,
-            ]
+                GulpRev::class            => Factory\GulpRevFactory::class,
+                TransportInterface::class => Mail\Transport\TransportServiceFactory::class,
+                Db\TableManager::class    => Db\TableManagerFactory::class,
+                RollbarLogger::class      => Rollbar\LoggerFactory::class,
+            ],
         ];
     }
 
     public function getGulpRevConfig(): array
     {
         return [
-            'manifests' => []
+            'manifests' => [],
         ];
     }
 
@@ -50,7 +53,7 @@ class ConfigProvider
     public function getFilterConfig(): array
     {
         return [
-            'aliases' => [
+            'aliases'   => [
                 'singlespaces'    => Filter\SingleSpaces::class,
                 'singleSpaces'    => Filter\SingleSpaces::class,
                 'SingleSpaces'    => Filter\SingleSpaces::class,
@@ -71,7 +74,7 @@ class ConfigProvider
     public function getViewHelperConfig(): array
     {
         return [
-            'aliases' => [
+            'aliases'   => [
                 'htmla'     => View\Helper\HtmlA::class,
                 'htmlA'     => View\Helper\HtmlA::class,
                 'HtmlA'     => View\Helper\HtmlA::class,
@@ -99,14 +102,14 @@ class ConfigProvider
     public function getRollbarConfig(): array
     {
         return [
-            'logger' => [
+            'logger'   => [
                 'access_token' => null,
-                'environment'  => null
+                'environment'  => null,
             ],
             'debounce' => [
                 'file'   => '/tmp/rollbar-debounce',
-                'period' => 60
-            ]
+                'period' => 60,
+            ],
         ];
     }
 }

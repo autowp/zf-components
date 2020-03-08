@@ -1,34 +1,40 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AutowpTest\ZFComponents;
 
-use Zend\Mail\Transport;
-use Zend\Mvc\Application;
-use Zend\ServiceManager\ServiceManager;
-
 use Autowp\ZFComponents\Mail\Transport\TransportServiceFactory;
+use Exception;
+use Laminas\Mail\Transport;
+use Laminas\Mvc\Application;
+use Laminas\ServiceManager\ServiceManager;
+use PHPUnit\Framework\TestCase;
 
-class MailTransportServiceFactoryTest extends \PHPUnit\Framework\TestCase
+use function sys_get_temp_dir;
+
+class MailTransportServiceFactoryTest extends TestCase
 {
-    public function testFactoryWorks()
+    public function testFactoryWorks(): void
     {
-        $app = Application::init(require __DIR__ . '/_files/config/application.config.php');
+        $app            = Application::init(require __DIR__ . '/_files/config/application.config.php');
         $serviceManager = $app->getServiceManager();
-        $transport = $serviceManager->get(Transport\TransportInterface::class);
+        $transport      = $serviceManager->get(Transport\TransportInterface::class);
 
         $this->assertInstanceOf(Transport\TransportInterface::class, $transport);
     }
 
     /**
      * @dataProvider configProvider
+     * @throws Exception
      */
-    public function testTransportCreates($transportConfig, $expected)
+    public function testTransportCreates(array $transportConfig, string $expected): void
     {
         $serviceManager = new ServiceManager();
         $serviceManager->setService('config', [
             'mail' => [
-                'transport' => $transportConfig
-            ]
+                'transport' => $transportConfig,
+            ],
         ]);
 
         $serviceFactory = new TransportServiceFactory();
@@ -39,15 +45,15 @@ class MailTransportServiceFactoryTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @expectedException Exception
+     * @throws Exception
      */
-    public function testExceptionThrowsOnMissingType()
+    public function testExceptionThrowsOnMissingType(): void
     {
         $serviceManager = new ServiceManager();
         $serviceManager->setService('config', [
             'mail' => [
-                'transport' => []
-            ]
+                'transport' => [],
+            ],
         ]);
 
         $serviceFactory = new TransportServiceFactory();
@@ -56,17 +62,17 @@ class MailTransportServiceFactoryTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @expectedException Exception
+     * @throws Exception
      */
-    public function testExceptionThrowsOnInvalidType()
+    public function testExceptionThrowsOnInvalidType(): void
     {
         $serviceManager = new ServiceManager();
         $serviceManager->setService('config', [
             'mail' => [
                 'transport' => [
-                    'type' => 'invalid'
-                ]
-            ]
+                    'type' => 'invalid',
+                ],
+            ],
         ]);
 
         $serviceFactory = new TransportServiceFactory();
@@ -74,35 +80,35 @@ class MailTransportServiceFactoryTest extends \PHPUnit\Framework\TestCase
         $serviceFactory($serviceManager, Transport\TransportInterface::class);
     }
 
-    public static function configProvider()
+    public static function configProvider(): array
     {
         return [
             [
                 [
                     'type'    => 'file',
                     'options' => [
-                        'path' => sys_get_temp_dir()
+                        'path' => sys_get_temp_dir(),
                     ],
                 ],
-                Transport\File::class
+                Transport\File::class,
             ],
             [
                 [
-                    'type'    => 'in-memory',
+                    'type' => 'in-memory',
                 ],
-                Transport\InMemory::class
+                Transport\InMemory::class,
             ],
             [
                 [
-                    'type'    => 'null',
+                    'type' => 'null',
                 ],
-                Transport\InMemory::class
+                Transport\InMemory::class,
             ],
             [
                 [
-                    'type'    => 'sendmail'
+                    'type' => 'sendmail',
                 ],
-                Transport\Sendmail::class
+                Transport\Sendmail::class,
             ],
             [
                 [
@@ -113,11 +119,11 @@ class MailTransportServiceFactoryTest extends \PHPUnit\Framework\TestCase
                         'connection_config' => [
                             'username' => 'no-reply@example.com',
                             'password' => '',
-                            'ssl'      => 'tls'
+                            'ssl'      => 'tls',
                         ],
                     ],
                 ],
-                Transport\Smtp::class
+                Transport\Smtp::class,
             ],
         ];
     }

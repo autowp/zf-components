@@ -1,22 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AutowpTest\ZFComponents;
 
 use Autowp\ZFComponents\Filter\FilenameSafe;
+use PHPUnit\Framework\TestCase;
 
-class FilenameSafeFilterTest extends \PHPUnit\Framework\TestCase
+class FilenameSafeFilterTest extends TestCase
 {
     /**
      * @dataProvider correctProvider
      */
-    public function testCorrect($text, $expected)
+    public function testCorrect(string $text, string $expected): void
     {
         $filter = new FilenameSafe();
         $result = $filter->filter($text);
         $this->assertEquals($expected, $result);
     }
 
-    public static function correctProvider()
+    public static function correctProvider(): array
     {
         return [
             ['just.test', 'just.test'],
@@ -27,7 +30,7 @@ class FilenameSafeFilterTest extends \PHPUnit\Framework\TestCase
             ['just test', 'just_test'],
             ['просто тест ', 'prosto_test'],
             ['数据库', 'shu_ju_ku'],
-            ['Škoda', 'skoda']
+            ['Škoda', 'skoda'],
         ];
     }
 }

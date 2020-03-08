@@ -1,21 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AutowpTest\ZFComponents;
 
-class HumanTimeTest extends \PHPUnit\Framework\TestCase
+use DateTime;
+use Laminas\Mvc\Application;
+use Laminas\View\Renderer\RendererInterface;
+use PHPUnit\Framework\TestCase;
+
+class HumanTimeTest extends TestCase
 {
-    private function getView()
+    private function getView(): RendererInterface
     {
-        $app = \Zend\Mvc\Application::init(require __DIR__ . '/_files/config/application.config.php');
+        $app = Application::init(require __DIR__ . '/_files/config/application.config.php');
 
         $serviceManager = $app->getServiceManager();
 
         return $serviceManager->get('ViewRenderer');
     }
 
-    public function testHelperWorks()
+    public function testHelperWorks(): void
     {
-        $html = $this->getView()->humanTime(new \DateTime());
+        $html = $this->getView()->humanTime(new DateTime());
 
         $this->assertEquals('now', $html);
     }

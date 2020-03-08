@@ -1,8 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Autowp\ZFComponents\View\Helper;
 
-use Zend\View\Helper\AbstractHtmlElement;
+use Laminas\View\Helper\AbstractHtmlElement;
+
+use function array_flip;
+use function array_keys;
+use function array_merge;
+use function is_array;
+use function shuffle;
 
 class HtmlImg extends AbstractHtmlElement
 {
@@ -29,7 +37,6 @@ class HtmlImg extends AbstractHtmlElement
     }
 
     /**
-     * @param array $attribs
      * @return array
      */
     private function shuffleAttribs(array $attribs)

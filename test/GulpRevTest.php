@@ -1,16 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AutowpTest\ZFComponents;
 
 use Autowp\ZFComponents\GulpRev;
+use Laminas\Mvc\Application;
+use PHPUnit\Framework\TestCase;
 
-class GulpRevTest extends \PHPUnit\Framework\TestCase
+class GulpRevTest extends TestCase
 {
-    public function testNotFailsOnMissingManifest()
+    public function testNotFailsOnMissingManifest(): void
     {
         $service = new GulpRev([
             'manifest' => 'not-existent-file.json',
-            'prefix'   => '/'
+            'prefix'   => '/',
         ]);
 
         $service->getRevUrl('test.css');
@@ -18,11 +22,11 @@ class GulpRevTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue(true);
     }
 
-    public function testPrefixPrepends()
+    public function testPrefixPrepends(): void
     {
         $service = new GulpRev([
             'manifest' => 'not-existent-file.json',
-            'prefix'   => 'http://prefix/'
+            'prefix'   => 'http://prefix/',
         ]);
 
         $result = $service->getRevUrl('test.css');
@@ -30,9 +34,9 @@ class GulpRevTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('http://prefix/test.css', $result);
     }
 
-    public function testScriptRevAppends()
+    public function testScriptRevAppends(): void
     {
-        $app = \Zend\Mvc\Application::init(require __DIR__ . '/_files/config/application.config.php');
+        $app = Application::init(require __DIR__ . '/_files/config/application.config.php');
 
         $serviceManager = $app->getServiceManager();
 
@@ -40,8 +44,8 @@ class GulpRevTest extends \PHPUnit\Framework\TestCase
 
         $view->gulpRev([
             'scripts' => [
-                'test.js'
-            ]
+                'test.js',
+            ],
         ]);
 
         $html = $view->headScript()->toString();

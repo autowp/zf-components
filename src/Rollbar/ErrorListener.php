@@ -1,17 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Autowp\ZFComponents\Rollbar;
 
+use Exception;
+use Laminas\EventManager\AbstractListenerAggregate;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\Mvc\MvcEvent;
 use Rollbar\RollbarLogger;
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\AbstractListenerAggregate;
-use Zend\Mvc\MvcEvent;
+
+use function file_exists;
+use function filemtime;
+use function time;
+use function touch;
 
 class ErrorListener extends AbstractListenerAggregate
 {
     /**
-     * @param EventManagerInterface $events
-     * @param int                   $priority
+     * @param int $priority
      */
     public function attach(EventManagerInterface $events, $priority = 1)
     {
@@ -30,15 +37,15 @@ class ErrorListener extends AbstractListenerAggregate
 
         $config = $serviceManager->get('Config');
         if (! isset($config['rollbar']['debounce'])) {
-            throw new \Exception('config/rollbar/debounce not provided');
+            throw new Exception('config/rollbar/debounce not provided');
         }
 
         $filePath = $config['rollbar']['debounce']['file'];
-        $period = $config['rollbar']['debounce']['period'];
+        $period   = $config['rollbar']['debounce']['period'];
 
         if (file_exists($filePath)) {
             $mtime = filemtime($filePath);
-            $diff = time() - $mtime;
+            $diff  = time() - $mtime;
         } else {
             $diff = $period + 1;
         }

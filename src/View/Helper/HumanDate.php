@@ -1,25 +1,27 @@
 <?php
 
-namespace Autowp\ZFComponents\View\Helper;
+declare(strict_types=1);
 
-use Zend\View\Helper\AbstractHelper;
+namespace Autowp\ZFComponents\View\Helper;
 
 use DateInterval;
 use DateTime;
-use DateTimeZone;
 use IntlDateFormatter;
+use Laminas\I18n\View\Helper\Translate;
+use Laminas\View\Exception\InvalidArgumentException;
+use Laminas\View\Helper\AbstractHelper;
 
 class HumanDate extends AbstractHelper
 {
     /**
      * Converts time to fuzzy time strings
      *
-     * @param string|integer|DateTime|array $time
+     * @param null|string|int|DateTime|array $time
      */
-    public function __invoke($time = null)
+    public function __invoke($time = null): string
     {
         if ($time === null) {
-            throw new \Zend\View\Exception\InvalidArgumentException('Expected parameter $time was not provided.');
+            throw new InvalidArgumentException('Expected parameter $time was not provided.');
         }
 
         if (! $time instanceof DateTime) {
@@ -32,23 +34,23 @@ class HumanDate extends AbstractHelper
         $now->setTimezone($time->getTimezone());
         $ymd = $time->format('Ymd');
 
-        if ($ymd == $now->format('Ymd')) {
+        if ($ymd === $now->format('Ymd')) {
             return $this->view->translate('today');
         }
 
         $now = new DateTime('now');
         $now->sub(new DateInterval('P1D'));
-        if ($ymd == $now->format('Ymd')) {
+        if ($ymd === $now->format('Ymd')) {
             return $this->view->translate('yesterday');
         }
 
         $now = new DateTime('now');
         $now->add(new DateInterval('P1D'));
-        if ($ymd == $now->format('Ymd')) {
+        if ($ymd === $now->format('Ymd')) {
             return $this->view->translate('tomorrow');
         }
 
-        $language = $this->view->plugin(\Zend\I18n\View\Helper\Translate::class)->getTranslator()->getLocale();
+        $language = $this->view->plugin(Translate::class)->getTranslator()->getLocale();
 
         $dateFormatter = new IntlDateFormatter($language, IntlDateFormatter::LONG, IntlDateFormatter::NONE);
         $dateFormatter->setTimezone($time->getTimezone());

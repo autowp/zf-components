@@ -1,10 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Autowp\ZFComponents\Router\Http;
 
-use Zend\Router\Http\RouteMatch;
-use Zend\Router\Http\Wildcard;
-use Zend\Stdlib\RequestInterface as Request;
+use Laminas\Router\Http\RouteMatch;
+use Laminas\Router\Http\Wildcard;
+use Laminas\Stdlib\RequestInterface as Request;
+
+use function array_merge;
+use function array_replace;
+use function array_shift;
+use function count;
+use function explode;
+use function implode;
+use function is_array;
+use function method_exists;
+use function rawurldecode;
+use function rawurlencode;
+use function strlen;
+use function substr;
 
 /**
  * WildcardSafe route.
@@ -17,14 +32,14 @@ class WildcardSafe extends Wildcard
      * match(): defined by RouteInterface interface.
      *
      * @see    \Zend\Router\RouteInterface::match()
-     * @param  Request      $request
-     * @param  integer|null $pathOffset
+     *
+     * @param  int|null $pathOffset
      * @return RouteMatch|null
      */
     public function match(Request $request, $pathOffset = null)
     {
         if (! method_exists($request, 'getUri')) {
-            return;
+            return null;
         }
 
         $uri  = $request->getUri();
@@ -42,7 +57,7 @@ class WildcardSafe extends Wildcard
         $params  = explode($this->paramDelimiter, $path);
 
         if (count($params) > 1 && ($params[0] !== '')) {
-            return;
+            return null;
         }
 
         if ($this->keyValueDelimiter === $this->paramDelimiter) {
@@ -50,7 +65,7 @@ class WildcardSafe extends Wildcard
 
             for ($i = 1; $i < $count; $i += 2) {
                 if (isset($params[$i + 1])) {
-                    $key = rawurldecode($params[$i]);
+                    $key   = rawurldecode($params[$i]);
                     $value = rawurldecode($params[$i + 1]);
                     if (isset($matches[$key])) {
                         if (! is_array($matches[$key])) {
@@ -69,7 +84,7 @@ class WildcardSafe extends Wildcard
                 $param = explode($this->keyValueDelimiter, $param, 2);
 
                 if (isset($param[1])) {
-                    $key = rawurldecode($param[0]);
+                    $key   = rawurldecode($param[0]);
                     $value = rawurldecode($param[1]);
 
                     if (isset($matches[$key])) {
@@ -92,13 +107,12 @@ class WildcardSafe extends Wildcard
     }
 
     /**
+     * @see    \Laminas\Router\RouteInterface::assemble()
+     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      *
      * assemble(): Defined by RouteInterface interface.
      *
-     * @see    \Zend\Router\RouteInterface::assemble()
-     * @param  array $params
-     * @param  array $options
      * @return mixed
      */
     public function assemble(array $params = [], array $options = [])

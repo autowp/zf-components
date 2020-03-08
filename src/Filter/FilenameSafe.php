@@ -1,38 +1,46 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Autowp\ZFComponents\Filter;
 
-use Zend\Filter\FilterInterface;
-use Autowp\ZFComponents\Filter\Transliteration;
+use Laminas\Filter\FilterInterface;
+
+use function mb_strtolower;
+use function preg_replace;
+use function str_replace;
+use function strlen;
+use function strtr;
+use function trim;
 
 class FilenameSafe implements FilterInterface
 {
     private $replaces = [
-        "№" => "N",
-        " " => '_',
-        '"' => '_',
-        "/" => '_',
-        '*' => '_',
-        '`' => '_',
-        '#' => '_',
-        '&' => '_',
+        "№"  => "N",
+        " "  => '_',
+        '"'  => '_',
+        "/"  => '_',
+        '*'  => '_',
+        '`'  => '_',
+        '#'  => '_',
+        '&'  => '_',
         '\\' => '_',
-        '!' => '_',
-        '@' => '_',
-        '$' => 's',
-        '%' => '_',
-        '^' => '_',
-        '=' => '-',
-        '|' => '_',
-        '?' => '_',
-        '„' => ',',
-        '“' => '_',
-        '”' => '_',
-        '{' => '(',
-        '}' => ')',
-        ':' => '-',
-        ';' => '_',
-        '-' => '-',
+        '!'  => '_',
+        '@'  => '_',
+        '$'  => 's',
+        '%'  => '_',
+        '^'  => '_',
+        '='  => '-',
+        '|'  => '_',
+        '?'  => '_',
+        '„'  => ',',
+        '“'  => '_',
+        '”'  => '_',
+        '{'  => '(',
+        '}'  => ')',
+        ':'  => '-',
+        ';'  => '_',
+        '-'  => '-',
     ];
 
     /**
@@ -56,16 +64,16 @@ class FilenameSafe implements FilterInterface
 
         do {
             $oldLength = strlen($value);
-            $value = str_replace('__', '_', $value);
-        } while ($oldLength != strlen($value));
+            $value     = str_replace('__', '_', $value);
+        } while ($oldLength !== strlen($value));
 
-        if (strlen($value) == 0) {
+        if (strlen($value) === 0) {
             $value = '_';
         }
 
         $map = [
             '..' => '__',
-            '.' => '_',
+            '.'  => '_',
         ];
 
         if (isset($map[$value])) {

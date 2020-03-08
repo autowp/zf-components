@@ -1,7 +1,6 @@
 language: php
 php:
-  - '7.2'
-  - '7.3'
+  - '7.4'
 
 addons:
   sonarcloud:
@@ -10,15 +9,14 @@ addons:
       secure: $SONARCLOUD_TOKEN
 
 before_script:
-- composer install
-- composer require zendframework/zend-i18n zendframework/zend-db
+  - composer install
 
 script:
-- composer cs-check || travis_terminate 1;
-- composer phpmd || travis_terminate 1;
-- ./vendor/bin/phpunit --log-junit test/logs/junit.xml --coverage-clover ./test/logs/clover.xml || travis_terminate 1;
-- sonar-scanner || travis_terminate 1;
+  - composer cs-check || travis_terminate 1;
+  - composer phpmd || travis_terminate 1;
+  - ./vendor/bin/phpunit --log-junit test/logs/junit.xml --coverage-clover ./clover.xml || travis_terminate 1;
 
 after_script:
-- ./vendor/bin/coveralls -v
-- ./vendor/bin/test-reporter -v --coverage-report=./test/logs/clover.xml
+    - sonar-scanner -Dsonar.login=$SONARCLOUD_TOKEN || travis_terminate 1;
+  - ./vendor/bin/php-coveralls -v -x ./clover.xml
+  - ./cc-test-reporter after-build -t clover --exit-code $TRAVIS_TEST_RESULT ./clover.xml

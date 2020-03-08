@@ -1,14 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Autowp\ZFComponents;
 
-use Zend\Json\Json;
+use Laminas\Json\Json;
+
+use function file_exists;
+use function file_get_contents;
+use function is_array;
 
 class GulpRev
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     private $manifests = [];
 
     public function __construct(array $options)
@@ -21,7 +25,7 @@ class GulpRev
         if (isset($options['manifest'])) {
             $manifests['default'] = [
                 'manifest' => $options['manifest'],
-                'prefix'   => $options['prefix']
+                'prefix'   => $options['prefix'],
             ];
         }
 
@@ -37,7 +41,10 @@ class GulpRev
         $this->manifests = $manifests;
     }
 
-    private function loadManifest($manifestName)
+    /**
+     * @throws GulpRevException
+     */
+    private function loadManifest(string $manifestName): ?array
     {
         if (! isset($this->manifests[$manifestName])) {
             throw new GulpRevException('Manifest`{$manifestName}` not found');
@@ -62,7 +69,7 @@ class GulpRev
         return $content;
     }
 
-    public function getRevUrl($file, $manifestName = 'default')
+    public function getRevUrl(string $file, string $manifestName = 'default'): string
     {
         $content = $this->loadManifest($manifestName);
 

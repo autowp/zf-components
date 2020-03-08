@@ -1,12 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Autowp\ZFComponents\Filter;
 
-use Zend\Filter\FilterInterface;
+use Laminas\Filter\FilterInterface;
+
+use function explode;
+use function implode;
+use function preg_replace;
+use function str_replace;
+use function strlen;
 
 class SingleSpaces implements FilterInterface
 {
-    public function filter($value)
+    /**
+     * @param mixed $value
+     */
+    public function filter($value): string
     {
         if (strlen($value) <= 0) {
             return '';

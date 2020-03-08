@@ -1,31 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Autowp\ZFComponents\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
-
 use Autowp\ZFComponents\GulpRev as Service;
+use Laminas\View\Helper\AbstractHelper;
+
+use function is_array;
 
 class GulpRev extends AbstractHelper
 {
-    /**
-     * @var Service
-     */
-    private $service;
+    /** @var Service */
+    private Service $service;
 
-    /**
-     * @param Service $service
-     */
     public function __construct(Service $service)
     {
         $this->service = $service;
     }
 
     /**
-     * @param array $options
-     * @return GulpRev
+     * @return $this
      */
-    public function __invoke(array $options = [], $manifest = 'default')
+    public function __invoke(array $options = [], string $manifest = 'default'): self
     {
         if (isset($options['stylesheets']) && is_array($options['stylesheets'])) {
             foreach ($options['stylesheets'] as $file) {
@@ -43,13 +40,14 @@ class GulpRev extends AbstractHelper
     }
 
     /**
-     * @param string $file
-     * @param string $type
-     * @param array $attributes
-     * @return GulpRev
+     * @return $this
      */
-    public function addScript($file, $type = 'text/javascript', array $attributes = [], $manifest = 'default')
-    {
+    public function addScript(
+        string $file,
+        string $type = 'text/javascript',
+        array $attributes = [],
+        string $manifest = 'default'
+    ): self {
         $url = $this->service->getRevUrl($file, $manifest);
 
         $this->view->headScript()->appendFile($url, $type, $attributes);
@@ -59,10 +57,9 @@ class GulpRev extends AbstractHelper
 
     /**
      * @param string $file
-     * @param string $media
-     * @return GulpRev
+     * @return $this
      */
-    public function addStylesheet($file, $media = 'screen', $manifest = 'default')
+    public function addStylesheet($file, string $media = 'screen', string $manifest = 'default'): self
     {
         $url = $this->service->getRevUrl($file, $manifest);
 
@@ -71,10 +68,10 @@ class GulpRev extends AbstractHelper
         return $this;
     }
 
-    public function script($file, $manifest = 'default')
+    public function script(string $file, string $manifest = 'default'): string
     {
         $url = $this->service->getRevUrl($file, $manifest);
 
-        return '<script type="text/javascript" src="'.$this->view->escapeHtmlAttr($url).'"></script>';
+        return '<script type="text/javascript" src="' . $this->view->escapeHtmlAttr($url) . '"></script>';
     }
 }

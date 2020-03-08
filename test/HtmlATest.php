@@ -1,37 +1,43 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AutowpTest\ZFComponents;
 
-class HtmlATest extends \PHPUnit\Framework\TestCase
+use Laminas\Mvc\Application;
+use Laminas\View\Renderer\RendererInterface;
+use PHPUnit\Framework\TestCase;
+
+class HtmlATest extends TestCase
 {
-    private function getView()
+    private function getView(): RendererInterface
     {
-        $app = \Zend\Mvc\Application::init(require __DIR__ . '/_files/config/application.config.php');
+        $app = Application::init(require __DIR__ . '/_files/config/application.config.php');
 
         $serviceManager = $app->getServiceManager();
 
         return $serviceManager->get('ViewRenderer');
     }
 
-    public function testHelperWorks()
+    public function testHelperWorks(): void
     {
         $html = $this->getView()->htmlA('http://example.com', 'example.com');
 
         $this->assertContains('<a href="http&#x3A;&#x2F;&#x2F;example.com">example.com</a>', $html);
     }
 
-    public function testUrlShorthandWorks()
+    public function testUrlShorthandWorks(): void
     {
         $html = $this->getView()->htmlA()->url('http://example.com');
 
         $this->assertContains('<a href="http&#x3A;&#x2F;&#x2F;example.com">example.com</a>', $html);
     }
 
-    public function testShuffleAttributeUnsets()
+    public function testShuffleAttributeUnsets(): void
     {
         $html = $this->getView()->htmlA([
             'href'    => 'http://example.com',
-            'shuffle' => true
+            'shuffle' => true,
         ], 'example.com');
 
         $this->assertNotContains('shuffle', $html);

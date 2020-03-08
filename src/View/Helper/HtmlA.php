@@ -1,15 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Autowp\ZFComponents\View\Helper;
 
-use Zend\View\Helper\AbstractHtmlElement;
+use Laminas\View\Helper\AbstractHtmlElement;
+
+use function array_flip;
+use function array_keys;
+use function array_merge;
+use function is_array;
+use function parse_url;
+use function preg_replace;
+use function shuffle;
 
 class HtmlA extends AbstractHtmlElement
 {
     /**
      * @param array|string $attribs
-     * @param string $content
-     * @param bool $escape
+     * @param string       $content
+     * @param bool         $escape
      * @return string
      */
     public function __invoke($attribs = [], $content = '', $escape = true)
@@ -50,13 +60,13 @@ class HtmlA extends AbstractHtmlElement
             $attribs = ['href' => $attribs];
         }
 
-        $href = isset($attribs['href']) ? $attribs['href'] : '';
+        $href = $attribs['href'] ?? '';
 
         $title = $href;
         if ($href) {
             $parsedUrl = parse_url($href);
 
-            $title = (isset($parsedUrl['host']) ? $parsedUrl['host'] : '');
+            $title = $parsedUrl['host'] ?? '';
             $title = preg_replace('|^www\.|isu', '', $title);
         }
 
@@ -64,7 +74,6 @@ class HtmlA extends AbstractHtmlElement
     }
 
     /**
-     * @param array $attribs
      * @return array
      */
     private function shuffleAttribs(array $attribs)

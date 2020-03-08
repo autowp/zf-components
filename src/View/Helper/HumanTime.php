@@ -1,20 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Autowp\ZFComponents\View\Helper;
 
-use Zend\View\Exception\InvalidArgumentException;
-use Zend\View\Helper\AbstractHelper;
-
 use DateTime;
+use Laminas\View\Exception\InvalidArgumentException;
+use Laminas\View\Helper\AbstractHelper;
+
+use function round;
+use function sprintf;
 
 class HumanTime extends AbstractHelper
 {
     /**
      * Converts time to fuzzy time strings
      *
-     * @param integer|DateTime $time
+     * @param null|int|DateTime $time
      * @throws InvalidArgumentException
-     *
      * @return string
      */
     public function __invoke($time = null)
@@ -33,7 +36,7 @@ class HumanTime extends AbstractHelper
 
         $diff = $now->getTimestamp() - $time->getTimestamp();
 
-        if ($diff < (60 * 60 + 60 * 30) && $diff >= (60 * 60 * 23.5)) {
+        if ($diff < (60 * 60 + 60 * 30) && $diff >= 60 * 60 * 23.5) {
             //more than hour and 30 minutes
             //less than 23 and half hour
             $hours = $diff / (60 * 60);
@@ -44,11 +47,11 @@ class HumanTime extends AbstractHelper
             );
         }
 
-        if ($diff < (60 * 55) && $diff >= (60 * 60 + 60 * 30)) {
+        if ($diff < (60 * 55) && $diff >= 60 * 60 + 60 * 30) {
             return $this->view->translate('in an hour');
         }
 
-        if ($diff < (60 + 30) && $diff >= (60 * 55)) {
+        if ($diff < (60 + 30) && $diff >= 60 * 55) {
             $minutes = $diff / 60;
             $minutes = round($minutes, 0);
             return sprintf(
@@ -65,7 +68,7 @@ class HumanTime extends AbstractHelper
             return $this->view->translate('in few seconds');
         }
 
-        if ($diff == 0) {
+        if ($diff === 0) {
             return $this->view->translate('now');
         }
 
@@ -74,13 +77,13 @@ class HumanTime extends AbstractHelper
             return $this->view->translate('few seconds ago');
         }
 
-        if ($diff > 50 && $diff < (60 + 30)) {
+        if ($diff > 50 && $diff < 60 + 30) {
             //more than 50 seconds
             //less than minute and 30 seconds
             return $this->view->translate('a minute ago');
         }
 
-        if ($diff >= (60 + 30) && $diff < (60 * 55)) {
+        if ($diff >= (60 + 30) && $diff < 60 * 55) {
             //more than minute and 30 seconds
             //less than 55 minutes
             $minutes = $diff / 60;
@@ -91,13 +94,13 @@ class HumanTime extends AbstractHelper
             );
         }
 
-        if ($diff >= (60 * 55) && $diff < (60 * 60 + 60 * 30)) {
+        if ($diff >= (60 * 55) && $diff < 60 * 60 + 60 * 30) {
             //more than 55 minutes
             //less than hour and 30 minutes
             return $this->view->translate('an hour ago');
         }
 
-        if ($diff >= (60 * 60 + 60 * 30) && $diff < (60 * 60 * 23.5)) {
+        if ($diff >= (60 * 60 + 60 * 30) && $diff < 60 * 60 * 23.5) {
             //more than hour and 30 minutes
             //less than 23 and half hour
             $hours = $diff / (60 * 60);

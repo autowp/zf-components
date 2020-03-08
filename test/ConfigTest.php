@@ -1,15 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AutowpTest\ZFComponents;
 
 use Autowp\ZFComponents;
+use Laminas\Mvc\Application;
+use PHPUnit\Framework\TestCase;
 
-class ConfigTest extends \PHPUnit\Framework\TestCase
+class ConfigTest extends TestCase
 {
-    public function testConfig()
+    public function testConfig(): void
     {
         $provider = new ZFComponents\ConfigProvider();
-        $config = $provider();
+        $config   = $provider();
 
         $this->assertArrayHasKey('dependencies', $config);
         $this->assertArrayHasKey('gulp-rev', $config);
@@ -17,18 +21,18 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
         $this->assertArrayHasKey('view_helpers', $config);
     }
 
-    public function testGulpRevRegistered()
+    public function testGulpRevRegistered(): void
     {
-        $app = \Zend\Mvc\Application::init(require __DIR__ . '/_files/config/application.config.php');
+        $app = Application::init(require __DIR__ . '/_files/config/application.config.php');
 
         $serviceManager = $app->getServiceManager();
 
         $this->assertInstanceOf(ZFComponents\GulpRev::class, $serviceManager->get(ZFComponents\GulpRev::class));
     }
 
-    public function testFiltersRegistered()
+    public function testFiltersRegistered(): void
     {
-        $app = \Zend\Mvc\Application::init(require __DIR__ . '/_files/config/application.config.php');
+        $app = Application::init(require __DIR__ . '/_files/config/application.config.php');
 
         $serviceManager = $app->getServiceManager();
 
@@ -39,9 +43,9 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf(ZFComponents\Filter\Transliteration::class, $filterManager->get('transliteration'));
     }
 
-    public function testViewHelpersRegistered()
+    public function testViewHelpersRegistered(): void
     {
-        $app = \Zend\Mvc\Application::init(require __DIR__ . '/_files/config/application.config.php');
+        $app = Application::init(require __DIR__ . '/_files/config/application.config.php');
 
         $serviceManager = $app->getServiceManager();
 
