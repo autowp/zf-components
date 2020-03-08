@@ -33,6 +33,6 @@ class HtmlImgTest extends TestCase
             'shuffle' => true,
         ]);
 
-        $this->assertStringNotContainsString('shuffle', $html);
+        $this->assertStringNotContainsStringIgnoringCase('shuffle', $html);
     }
 }

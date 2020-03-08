@@ -40,6 +40,6 @@ class HtmlATest extends TestCase
             'shuffle' => true,
         ], 'example.com');
 
-        $this->assertStringContainsString('shuffle', $html);
+        $this->assertStringNotContainsStringIgnoringCase('shuffle', $html);
     }
 }
