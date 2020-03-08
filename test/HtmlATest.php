@@ -23,14 +23,14 @@ class HtmlATest extends TestCase
     {
         $html = $this->getView()->htmlA('http://example.com', 'example.com');
 
-        $this->assertContains('<a href="http&#x3A;&#x2F;&#x2F;example.com">example.com</a>', $html);
+        $this->assertStringContainsString('<a href="http&#x3A;&#x2F;&#x2F;example.com">example.com</a>', $html);
     }
 
     public function testUrlShorthandWorks(): void
     {
         $html = $this->getView()->htmlA()->url('http://example.com');
 
-        $this->assertContains('<a href="http&#x3A;&#x2F;&#x2F;example.com">example.com</a>', $html);
+        $this->assertStringContainsString('<a href="http&#x3A;&#x2F;&#x2F;example.com">example.com</a>', $html);
     }
 
     public function testShuffleAttributeUnsets(): void
@@ -40,6 +40,6 @@ class HtmlATest extends TestCase
             'shuffle' => true,
         ], 'example.com');
 
-        $this->assertNotContains('shuffle', $html);
+        $this->assertStringContainsString('shuffle', $html);
     }
 }

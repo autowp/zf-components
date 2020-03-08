@@ -13,7 +13,7 @@ use function is_array;
 class GulpRev
 {
     /** @var array */
-    private $manifests = [];
+    private array $manifests = [];
 
     public function __construct(array $options)
     {

@@ -50,6 +50,6 @@ class GulpRevTest extends TestCase
 
         $html = $view->headScript()->toString();
 
-        $this->assertContains('&#x2F;test-81bcd394dd.js', $html);
+        $this->assertStringContainsString('&#x2F;test-81bcd394dd.js', $html);
     }
 }

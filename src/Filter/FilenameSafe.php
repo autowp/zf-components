@@ -15,7 +15,7 @@ use function trim;
 
 class FilenameSafe implements FilterInterface
 {
-    private $replaces = [
+    private array $replaces = [
         "№"  => "N",
         " "  => '_',
         '"'  => '_',

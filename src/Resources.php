@@ -15,18 +15,13 @@ final class Resources
 
     /**
      * Return the base path to the language resources.
-     *
-     * @return string
      */
-    public static function getBasePath()
+    public static function getBasePath(): string
     {
         return __DIR__ . '/../languages/';
     }
 
-    /**
-     * @return string
-     */
-    public static function getPatternForViewHelpers()
+    public static function getPatternForViewHelpers(): string
     {
         return '%s.php';
     }
