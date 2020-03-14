@@ -8,6 +8,7 @@ use Laminas\Filter\FilterInterface;
 
 use function explode;
 use function implode;
+use function is_string;
 use function preg_replace;
 use function str_replace;
 use function strlen;
@@ -19,6 +20,10 @@ class SingleSpaces implements FilterInterface
      */
     public function filter($value): string
     {
+        if (! is_string($value)) {
+            return $value;
+        }
+
         if (strlen($value) <= 0) {
             return '';
         }
