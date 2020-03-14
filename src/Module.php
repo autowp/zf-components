@@ -15,7 +15,6 @@ class Module
             'view_helpers'    => $provider->getViewHelperConfig(),
             'service_manager' => $provider->getDependencyConfig(),
             'tables'          => [],
-            'rollbar'         => $provider->getRollbarConfig(),
         ];
     }
 }

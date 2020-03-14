@@ -19,7 +19,6 @@
         "laminas/laminas-filter": ">=2.7"
     },
     "suggest" : {
-        "rollbar/rollbar": "^2.0, To use rollbar error listener",
         "ext-intl": "*, To use transliteration filter",
         "laminas/laminas-i18n": ">=2.7, To use transliteration filter",
         "laminas/laminas-db": "^2.8, To use TableManger"
@@ -35,7 +34,6 @@
         "laminas/laminas-coding-standard": "^2.0.0rc1",
         "phpmd/phpmd": "^2.6",
         "laminas/laminas-db": "^2.8",
-        "rollbar/rollbar": "^2.0",
         "ext-intl": "*",
         "laminas/laminas-i18n": ">=2.7"
     },

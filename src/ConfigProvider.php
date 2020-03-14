@@ -6,7 +6,6 @@ namespace Autowp\ZFComponents;
 
 use Laminas\Mail\Transport\TransportInterface;
 use Laminas\ServiceManager\Factory\InvokableFactory;
-use Rollbar\RollbarLogger;
 
 class ConfigProvider
 {
@@ -18,7 +17,6 @@ class ConfigProvider
             'filters'      => $this->getFilterConfig(),
             'view_helpers' => $this->getViewHelperConfig(),
             'tables'       => [],
-            'rollbar'      => $this->getRollbarConfig(),
         ];
     }
 
@@ -35,7 +33,6 @@ class ConfigProvider
                 GulpRev::class            => Factory\GulpRevFactory::class,
                 TransportInterface::class => Mail\Transport\TransportServiceFactory::class,
                 Db\TableManager::class    => Db\TableManagerFactory::class,
-                RollbarLogger::class      => Rollbar\LoggerFactory::class,
             ],
         ];
     }
@@ -95,20 +92,6 @@ class ConfigProvider
                 View\Helper\HumanTime::class => InvokableFactory::class,
                 View\Helper\HumanDate::class => InvokableFactory::class,
                 View\Helper\GulpRev::class   => Factory\GulpRevViewHelperFactory::class,
-            ],
-        ];
-    }
-
-    public function getRollbarConfig(): array
-    {
-        return [
-            'logger'   => [
-                'access_token' => null,
-                'environment'  => null,
-            ],
-            'debounce' => [
-                'file'   => '/tmp/rollbar-debounce',
-                'period' => 60,
             ],
         ];
     }
