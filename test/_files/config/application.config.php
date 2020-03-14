@@ -6,6 +6,7 @@ return [
     'modules'                 => [
         'Laminas\\Db',
         'Laminas\\Filter',
+        'Laminas\\Router',
         'Laminas\\I18n',
         'Autowp\\ZFComponents',
     ],
