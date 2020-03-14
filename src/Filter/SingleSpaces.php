@@ -20,9 +20,7 @@ class SingleSpaces implements FilterInterface
      */
     public function filter($value): string
     {
-        if (! is_string($value)) {
-            return $value;
-        }
+        $value = (string) $value;
 
         if (strlen($value) <= 0) {
             return '';
