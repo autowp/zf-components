@@ -8,7 +8,6 @@ use Laminas\Filter\FilterInterface;
 
 use function explode;
 use function implode;
-use function is_string;
 use function preg_replace;
 use function str_replace;
 use function strlen;

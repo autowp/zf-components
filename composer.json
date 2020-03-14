@@ -35,7 +35,8 @@
         "phpmd/phpmd": "^2.6",
         "laminas/laminas-db": "^2.8",
         "ext-intl": "*",
-        "laminas/laminas-i18n": ">=2.7"
+        "laminas/laminas-i18n": ">=2.7",
+        "ext-pdo": "*"
     },
     "autoload-dev": {
         "psr-4": {
