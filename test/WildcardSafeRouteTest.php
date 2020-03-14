@@ -6,6 +6,7 @@ namespace AutowpTest\ZFComponents;
 
 use Laminas\Http\Request;
 use Laminas\Mvc\Application;
+use Laminas\Router\Http\TreeRouteStack;
 use Laminas\Router\RouteMatch;
 use Laminas\View\Renderer\RendererInterface;
 use PHPUnit\Framework\TestCase;
@@ -43,7 +44,8 @@ class WildcardSafeRouteTest extends TestCase
     public function testMatch(): void
     {
         $serviceManager = $this->getApp()->getServiceManager();
-        $router         = $serviceManager->get('HttpRouter');
+        /** @var TreeRouteStack $router */
+        $router = $serviceManager->get('HttpRouter');
 
         $request = Request::fromString("GET /example/param1/value1/param2/value2 HTTP/1.0\n");
 
@@ -79,7 +81,8 @@ class WildcardSafeRouteTest extends TestCase
     public function testMatchWithCustomDelimiter(): void
     {
         $serviceManager = $this->getApp()->getServiceManager();
-        $router         = $serviceManager->get('HttpRouter');
+        /** @var TreeRouteStack $router */
+        $router = $serviceManager->get('HttpRouter');
 
         $request = Request::fromString("GET /example2/param1=value1/param2=value2 HTTP/1.0\n");
 
@@ -110,7 +113,8 @@ class WildcardSafeRouteTest extends TestCase
     public function testMatchWithExcludedParameters(): void
     {
         $serviceManager = $this->getApp()->getServiceManager();
-        $router         = $serviceManager->get('HttpRouter');
+        /** @var TreeRouteStack $router */
+        $router = $serviceManager->get('HttpRouter');
 
         $request = Request::fromString(
             "GET /example/param1/value1/param2/value2/controller/test/action/test HTTP/1.0\n"
