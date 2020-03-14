@@ -9,7 +9,7 @@ addons:
       secure: $SONARCLOUD_TOKEN
 
 before_script:
-  - composer install
+  - composer install --no-progress --no-interaction --no-suggest
   - curl -Ls https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
 

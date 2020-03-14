@@ -12,11 +12,11 @@ use PHPUnit\Framework\TestCase;
 
 class WildcardSafeRouteTest extends TestCase
 {
-    private $app;
+    private Application $app;
 
     private function getApp(): Application
     {
-        if ($this->app === null) {
+        if (! isset($this->app)) {
             $this->app = Application::init(require __DIR__ . '/_files/config/application.config.php');
         }
 
