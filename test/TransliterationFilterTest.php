@@ -16,7 +16,7 @@ class TransliterationFilterTest extends TestCase
     {
         $filter = new Transliteration();
         $result = $filter->filter($text);
-        $this->assertRegexp($pattern, $result);
+        $this->assertMatchesRegularExpression($pattern, $result);
     }
 
     public static function correctProvider(): array
