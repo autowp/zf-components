@@ -20,12 +20,12 @@ class HtmlA extends AbstractHtmlElement
      * @param array|string $attribs
      * @param string       $content
      * @param bool         $escape
-     * @return string
+     * @return string|self
      */
     public function __invoke($attribs = [], $content = '', $escape = true)
     {
         if (! $content && ! $attribs) {
-            return '';
+            return $this;
         }
 
         if ($escape) {
@@ -52,7 +52,7 @@ class HtmlA extends AbstractHtmlElement
 
     /**
      * @param array|string $attribs
-     * @return string
+     * @return string|self
      */
     public function url($attribs)
     {
