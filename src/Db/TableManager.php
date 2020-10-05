@@ -9,8 +9,6 @@ use Laminas\Db\TableGateway\Feature\SequenceFeature;
 use Laminas\Db\TableGateway\TableGateway;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\ServiceManager\ServiceLocatorInterface;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
 
 use function sprintf;
 
@@ -35,7 +33,6 @@ class TableManager implements ServiceLocatorInterface
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * @param  string $name
      * @return TableGateway
-     * @throws ContainerExceptionInterface If any other error occurs.
      */
     public function build($name, ?array $options = null)
     {
@@ -63,8 +60,6 @@ class TableManager implements ServiceLocatorInterface
 
     /**
      * @param string $id Identifier of the entry to look for.
-     * @throws NotFoundExceptionInterface  No entry was found for **this** identifier.
-     * @throws ContainerExceptionInterface Error while retrieving the entry.
      * @return mixed Entry.
      */
     public function get($id)

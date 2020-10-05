@@ -36,7 +36,8 @@
         "laminas/laminas-db": "^2.8",
         "ext-intl": "*",
         "laminas/laminas-i18n": ">=2.7",
-        "ext-pdo": "*"
+        "ext-pdo": "*",
+        "vimeo/psalm": "^3.16"
     },
     "autoload-dev": {
         "psr-4": {

@@ -17,6 +17,7 @@ script:
   - ./cc-test-reporter before-build || travis_terminate 1;
   - composer cs-check || travis_terminate 1;
   - composer phpmd || travis_terminate 1;
+  - ./vendor/bin/psalm || travis_terminate 1;
   - ./vendor/bin/phpunit --log-junit test/logs/junit.xml --coverage-clover ./clover.xml || travis_terminate 1;
 
 after_script:

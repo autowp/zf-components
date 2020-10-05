@@ -12,9 +12,9 @@ class Transliteration implements FilterInterface
     /**
      * Defined by FilterInterface
      *
-     * Returns $value translitered to ASCII
+     * Returns $value transliterated to ASCII
      *
-     * @param  string $value
+     * @param  mixed $value
      * @return string
      */
     public function filter($value)

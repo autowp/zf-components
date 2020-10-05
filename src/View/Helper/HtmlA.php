@@ -25,7 +25,7 @@ class HtmlA extends AbstractHtmlElement
     public function __invoke($attribs = [], $content = '', $escape = true)
     {
         if (! $content && ! $attribs) {
-            return $this;
+            return '';
         }
 
         if ($escape) {
